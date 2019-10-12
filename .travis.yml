@@ -57,8 +57,6 @@ script:
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then valgrind —tool=memcheck -v —leak-check=yes ./test ; fi
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then uname -a ; fi
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then g++ --version ; fi
-    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then valgrind --version ; fi
-    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cppcheck --version ; fi
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then lcov --version ; fi  
     - mkdir build
     - cd build
