@@ -34,6 +34,32 @@ typedef struct {
 } product_t;
 
 
+int check_date(int d, int m, int y)
+{
+	struct tm *tim;
+	time_t tt = time(NULL);
+	tim = localtime(&tt);
+	
+	if (y < 1990)
+		return WRONG_YEAR;
+	if (m < 0 || m > 12)
+		return WRONG_MONTH;
+	if (d < 0 || d > 31)
+		return WRONG_DAY;
+	if (y > tim->tm_year + 1900)
+		return FUTURE_DATE;
+	if (y == tim->tm_year + 1900 && m > tim->tm_mon + 1)
+		return FUTURE_DATE;
+	if (y == tim->tm_year + 1900 && m == tim->tm_mon + 1 && d > tim->tm_mday)
+		return FUTURE_DATE;
+	if ((m == 4 || m == 6 || m == 9 || m == 11) && d > 30)
+		return WRONG_DATE;
+	if (m == 2 && d > 28)
+		return WRONG_DATE;
+	return 0;
+}
+
+
 int read_from_file(FILE **fin, product_t **p, int *amount)
 {
 	int a1 = 0, a2 = 0, a3 = 0, am = 0;
@@ -149,31 +175,6 @@ void output(product_t *prod, int amount)
 	}
 }
 
-int check_date(int d, int m, int y)
-{
-	struct tm *tim;
-	time_t tt = time(NULL);
-	tim = localtime(&tt);
-	
-	if (y < 1990)
-		return WRONG_YEAR;
-	if (m < 0 || m > 12)
-		return WRONG_MONTH;
-	if (d < 0 || d > 31)
-		return WRONG_DAY;
-	if (y > tim->tm_year + 1900)
-		return FUTURE_DATE;
-	if (y == tim->tm_year + 1900 && m > tim->tm_mon + 1)
-		return FUTURE_DATE;
-	if (y == tim->tm_year + 1900 && m == tim->tm_mon + 1 && d > tim->tm_mday)
-		return FUTURE_DATE;
-	if ((m == 4 || m == 6 || m == 9 || m == 11) && d > 30)
-		return WRONG_DATE;
-	if (m == 2 && d > 28)
-		return WRONG_DATE;
-	return 0;
-}
-
 int sort_by_key(product_t *prod, int amount)
 {
 	printf("%d \n", amount);
@@ -272,7 +273,7 @@ void test()
 	{
 		err_code = ERR_FILE;
 		error_message(err_code);
-		return ERR_FILE;
+		return;
 	}
 	int amount;
 	product_t *prod = NULL;
@@ -281,7 +282,8 @@ void test()
 	{
 		error_message(err_code);
 		fclose(fin);
-		return err_code;
+		free(prod);
+		return;
 	}
 	fclose(fin);
 	sort_by_key(prod, amount);
