@@ -70,7 +70,7 @@ int read_from_file(FILE **fin, product_t **p, int *amount)
 	sc = fscanf(*fin, "%d\n", amount);
 	if (sc == EOF)
 		return EMPTY_FILE;
-	if (sc != 1 || amount < 0)
+	if (sc != 1 || (*amount) < 0)
 		return WRONG_FILE;
 	*p = (product_t *)calloc(*amount, sizeof(product_t));
 	if (!(*p))
