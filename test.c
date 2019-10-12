@@ -265,9 +265,7 @@ void test()
 {
 	int err_code = 0;
 	setbuf(stdout, NULL);
-	char filename[20] = "in_0.txt";
-	scanf("%s", filename);
-	printf("%s\n", filename);
+	char filename[20] = "../in_0.txt";
 	FILE *fin = fopen(filename, "r");
 	if (!fin)
 	{
