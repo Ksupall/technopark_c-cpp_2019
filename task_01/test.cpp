@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "struct.hpp"
+#include <cstring>
 
 TEST(check_data, wrong_year)
 {
@@ -43,7 +44,7 @@ TEST(sort_by_key, array_two)
 	int key[2] = {0, 1};
 	int result[2] = {1, 0};
 	sort_by_key(p, 2, key);
-	ASSERT_EQ(result, key);
+	ASSERT_EQ(0, memcmp(result, key, 2 * sizeof(int)));
 }
 
 int main(int argc, char **argv)
