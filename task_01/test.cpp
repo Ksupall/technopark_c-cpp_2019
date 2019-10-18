@@ -35,6 +35,16 @@ TEST(check_data, wrong_date)
 	ASSERT_EQ(WRONG_DATE, check_date(31, 11, 2012));
 }
 
+TEST(sort_by_key, array_two)
+{
+	product_t p[2];
+	p[0] = {"WordPad", "Office application", "12.09.03", {23, 12, 2001}, {0, 0, 0}};
+	p[1] = {"Firefox", "Browser", "10.10.5", {11, 10, 2019}, {0, 0, 0}};
+	int key[2] = {0, 1};
+	int result[2] = {1, 0};
+	ASSERT_EQ(result, sort_by_key(p, 2, key));
+}
+
 int main(int argc, char **argv)
 {
     testing::InitGoogleTest(&argc, argv);
