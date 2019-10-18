@@ -28,11 +28,11 @@ TEST(check_data, future_date)
 
 TEST(check_data, wrong_date)
 {
-	ASSERT_EQ(WRONG_DATE, check_date(31, 2, 2012);
-	ASSERT_EQ(WRONG_DATE, check_date(31, 4, 2012);
-	ASSERT_EQ(WRONG_DATE, check_date(31, 6, 2012);
-	ASSERT_EQ(WRONG_DATE, check_date(31, 9, 2012);
-	ASSERT_EQ(WRONG_DATE, check_date(31, 11, 2012);
+	ASSERT_EQ(WRONG_DATE, check_date(31, 2, 2012));
+	ASSERT_EQ(WRONG_DATE, check_date(31, 4, 2012));
+	ASSERT_EQ(WRONG_DATE, check_date(31, 6, 2012));
+	ASSERT_EQ(WRONG_DATE, check_date(31, 9, 2012));
+	ASSERT_EQ(WRONG_DATE, check_date(31, 11, 2012));
 }
 
 int main(int argc, char **argv)
