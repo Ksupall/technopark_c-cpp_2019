@@ -31,7 +31,7 @@ jobs:
     - make
 
     stage: memcheck
-    script: valgrind --tool=memcheck ./lab_01/lab_01 -memcheck
+    script: valgrind --tool=memcheck ./task_01/task_01 -memcheck
 
     stage: test
     script: ctest --output-on-failure
