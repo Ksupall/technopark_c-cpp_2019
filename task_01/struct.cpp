@@ -79,7 +79,7 @@ int read_from_file(FILE **fin, product_t **p, int *amount)
 
 
 //вывод на экран результата задачи
-void output(product_t *prod, int amount)
+void output(product_t *prod, int amount, int *key)
 {
 	struct tm *tim;
 	time_t tt = time(NULL);
@@ -99,15 +99,15 @@ void output(product_t *prod, int amount)
 	}
 	for (int i = 0; i < amount; i++)
 	{
-		int i_d = prod[i].install_date.day;
-		int i_m = prod[i].install_date.month;
-		int i_y = prod[i].install_date.year;
-		int u_d = prod[i].update_date.day;
+		int i_d = prod[key[i]].install_date.day;
+		int i_m = prod[key[i]].install_date.month;
+		int i_y = prod[key[i]].install_date.year;
+		int u_d = prod[key[i]].update_date.day;
 		if (u_d == 0 && (i_y < year || 
 		(i_d <= day && i_m <= month && i_y == year) || (i_d > day && i_m < month && i_y == year)))
 		{
-			printf("%-4d%-15s\t%-20s\t%-10s", i+1, prod[i].name,
-			prod[i].class_name, prod[i].version);
+			printf("%-4d%-15s\t%-20s\t%-10s", i+1, prod[key[i]].name,
+			prod[key[i]].class_name, prod[key[i]].version);
 			if (i_d >= 10 && i_m >= 10)
 				printf("\t%d.%d.%d", i_d, i_m, i_y);
 			else if (i_d >= 10 && i_m < 10)
@@ -184,27 +184,26 @@ int check_date(int d, int m, int y)
 	return 0;
 }
 
-int sort_by_key(product_t *prod, int amount)
+int sort_by_key(product_t *prod, int amount, int *key)
 {
-	printf("%d \n", amount);
 	for(int i = 1; i < amount; i++)
         for(int j = 0; j < amount - i; j++)
-            if(strcmp(prod[j].class_name, prod[j+1].class_name) > 0)
+            if(strcmp(prod[key[j]].class_name, prod[key[j+1]].class_name) > 0)
 			{
-				product_t str;
-                str =  prod[j];
-                prod[j] = prod[j+1];
-                prod[j+1] = str;
+				int tmp;
+                tmp =  key[j];
+                key[j] = key[j+1];
+                key[j+1] = tmp;
 			}
 	for(int i = 1; i < amount; i++)
         for(int j = 0; j < amount - i; j++)
-            if(strcmp(prod[j].class_name, prod[j+1].class_name) == 0 
-				&& strcmp(prod[j].name, prod[j+1].name) > 0)
+            if(strcmp(prod[key[j]].class_name, prod[key[j+1]].class_name) == 0 
+				&& strcmp(prod[key[j]].name, prod[key[j+1]].name) > 0)
 			{
-				product_t str;
-                str =  prod[j];
-                prod[j] = prod[j+1];
-                prod[j+1] = str;
+				int tmp;
+                tmp =  key[j];
+                key[j] = key[j+1];
+                key[j+1] = tmp;
 			}
 	return 0;
 }

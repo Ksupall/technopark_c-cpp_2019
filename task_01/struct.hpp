@@ -32,9 +32,9 @@ typedef struct {
 } product_t;
 
 int read_from_file(FILE **fin, product_t **p, int *amount);
-void output(product_t *prod, int amount);
+void output(product_t *prod, int amount, int *key);
 void print_products(product_t *prod, int amount);
 int check_date(int d, int m, int y);
-int sort_by_key(product_t *prod, int amount);
+int sort_by_key(product_t *prod, int amount, int *key);
 
 #endif

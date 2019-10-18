@@ -32,7 +32,7 @@ int main()
 {
 	int err_code = 0;
 	setbuf(stdout, NULL);
-	char filename[20] = "../in_0.txt";
+	char filename[20] = "in_0.txt";
 	FILE *fin = fopen(filename, "r");
 	if (!fin)
 	{
@@ -51,8 +51,17 @@ int main()
 		return err_code;
 	}
 	fclose(fin);
-	sort_by_key(prod, amount);
-	output(prod, amount);
+	int *key = (int *)calloc(amount, sizeof(int));
+	if (!key)
+	{
+		free(prod);
+		return ERR_MEMORY;
+	}
+	for (int i = 0; i < amount; i++)
+		key[i] = i;
+	sort_by_key(prod, amount, key);
+	output(prod, amount, key);
 	free(prod);
+	free(key);
 	return 0;
 }
