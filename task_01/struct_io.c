@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "struct.h"
 #include "struct_io.h"
 
 int read_from_file(FILE **fin, product_t **p, int *amount)
