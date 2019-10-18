@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "struct.h"
+#include "struct.hpp"
 
 TEST(check_data, wrong_year)
 {
