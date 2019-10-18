@@ -3,8 +3,8 @@
 
 TEST(check_data, wrong_year)
 {
-	ASSERT_EQ(WRONG_YEAR, check_data(3, 11, -100));
-	ASSERT_EQ(WRONG_YEAR, check_data(3, 11, 1980));
+	ASSERT_EQ(WRONG_YEAR, check_date(3, 11, -100));
+	ASSERT_EQ(WRONG_YEAR, check_date(3, 11, 1980));
 }
 
 int main(int argc, char **argv)
