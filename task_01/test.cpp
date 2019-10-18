@@ -1,5 +1,4 @@
 #include "gtest/gtest.h"
-#include <time.h>
 #include "struct.hpp"
 
 TEST(check_data, wrong_year)
