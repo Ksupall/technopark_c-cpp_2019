@@ -1,5 +1,5 @@
-#ifndef __SRUCT__H__
-#define __SRUCT__H__
+#ifndef __STRUCT__H__
+#define __STRUCT__H__
 
 #define OK 0
 #define NO_FILENAME -1
