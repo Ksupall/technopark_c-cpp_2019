@@ -42,7 +42,8 @@ TEST(sort_by_key, array_two)
 	p[1] = {"Firefox", "Browser", "10.10.5", {11, 10, 2019}, {0, 0, 0}};
 	int key[2] = {0, 1};
 	int result[2] = {1, 0};
-	ASSERT_EQ(result, sort_by_key(p, 2, key));
+	sort_by_key(p, 2, key);
+	ASSERT_EQ(result, key);
 }
 
 int main(int argc, char **argv)
