@@ -23,7 +23,7 @@ TEST(check_data, future_date)
 {
 	ASSERT_EQ(FUTURE_DATE, check_date(3, 11, 2086));
 	ASSERT_EQ(FUTURE_DATE, check_date(3, 12, 2019));
-	ASSERT_EQ(FUTURE_DATE, check_date(15, 11, 2019);
+	ASSERT_EQ(FUTURE_DATE, check_date(15, 11, 2019));
 }
 
 TEST(check_data, wrong_date)
