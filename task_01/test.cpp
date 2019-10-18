@@ -47,6 +47,44 @@ TEST(sort_by_key, array_two)
 	ASSERT_EQ(0, memcmp(result, key, 2 * sizeof(int)));
 }
 
+TEST(sort_by_key, array_three)
+{
+	product_t p[3] =
+	{{"WordPad", "Office application", "12.09.03", {23, 12, 2001}, {0, 0, 0}}, 
+	{"Firefox", "Browser", "10.10.5", {11, 10, 2019}, {0, 0, 0}},
+	{"Dead Island", "Game", "78.89.25", {30, 08, 2019}, {0, 0, 0}}};
+	int key[3] = {0, 1, 2};
+	int result[3] = {1, 2, 0};
+	sort_by_key(p, 3, key);
+	ASSERT_EQ(0, memcmp(result, key, 3 * sizeof(int)));
+}
+
+TEST(sort_by_key, array_four)
+{
+	product_t p[4] =
+	{{"WordPad", "Office application", "12.09.03", {23, 12, 2001}, {0, 0, 0}}, 
+	{"Firefox", "Browser", "10.10.5", {11, 10, 2019}, {0, 0, 0}},
+	{"Dead Island", "Game", "78.89.25", {30, 08, 2019}, {0, 0, 0}},
+	{"Avast", "Antivirus", "02.05.16", {29, 03, 2015}, {30, 11, 2018}}};
+	int key[4] = {0, 1, 2, 3};
+	int result[4] = {3, 1, 2, 0};
+	sort_by_key(p, 4, key);
+	ASSERT_EQ(0, memcmp(result, key, 4 * sizeof(int)));
+}
+
+TEST(sort_by_key, array_four_one_class)
+{
+	product_t p[4] =
+	{{"WordPad", "Office application", "12.09.03", {23, 12, 2001}, {0, 0, 0}}, 
+	{"Avast", "Browser", "10.10.5", {11, 10, 2019}, {0, 0, 0}},
+	{"Dead Island", "Game", "78.89.25", {30, 08, 2019}, {0, 0, 0}},
+	{"Firefox", "Browser", "02.05.16", {29, 03, 2015}, {30, 11, 2018}}};
+	int key[4] = {0, 1, 2, 3};
+	int result[4] = {1, 3, 2, 0};
+	sort_by_key(p, 4, key);
+	ASSERT_EQ(0, memcmp(result, key, 4 * sizeof(int)));
+}
+
 int main(int argc, char **argv)
 {
     testing::InitGoogleTest(&argc, argv);
