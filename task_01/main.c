@@ -244,7 +244,7 @@ int main()
 	{
 		err_code = ERR_FILE;
 		error_message(err_code);
-		return;
+		return err_code;
 	}
 	int amount;
 	product_t *prod = NULL;
@@ -254,7 +254,7 @@ int main()
 		error_message(err_code);
 		fclose(fin);
 		free(prod);
-		return;
+		return err_code;
 	}
 	fclose(fin);
 	sort_by_key(prod, amount);
