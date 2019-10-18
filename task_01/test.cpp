@@ -22,12 +22,9 @@ TEST(check_data, wrong_day)
 
 TEST(check_data, future_date)
 {
-	struct tm *tim;
-	time_t tt = time(NULL);
-	tim = localtime(&tt);
-	ASSERT_EQ(FUTURE_DATE, check_date(3, 11, tim->tm_year + 1905));
-	ASSERT_EQ(FUTURE_DATE, check_date(3, 12, tim->tm_year + 1900));
-	ASSERT_EQ(FUTURE_DATE, check_date(tim->tm_day + 5, 11, tim->tm_year + 1900));
+	ASSERT_EQ(FUTURE_DATE, check_date(3, 11, 2086));
+	ASSERT_EQ(FUTURE_DATE, check_date(3, 12, 2019));
+	ASSERT_EQ(FUTURE_DATE, check_date(15, 11, 2019);
 }
 
 TEST(check_data, wrong_date)
