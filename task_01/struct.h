@@ -31,10 +31,53 @@ typedef struct {
 	date_t update_date;
 } product_t;
 
-int check_date(int d, int m, int y);
-int read_from_file(FILE **fin, product_t **p, int *amount);
-void output(product_t *prod, int amount);
-int sort_by_key(product_t *prod, int amount);
-void print_products(product_t *prod, int amount);
+int check_date(int d, int m, int y)
+{
+	struct tm *tim;
+	time_t tt = time(NULL);
+	tim = localtime(&tt);
+	
+	if (y < 1990)
+		return WRONG_YEAR;
+	if (m < 0 || m > 12)
+		return WRONG_MONTH;
+	if (d < 0 || d > 31)
+		return WRONG_DAY;
+	if (y > tim->tm_year + 1900)
+		return FUTURE_DATE;
+	if (y == tim->tm_year + 1900 && m > tim->tm_mon + 1)
+		return FUTURE_DATE;
+	if (y == tim->tm_year + 1900 && m == tim->tm_mon + 1 && d > tim->tm_mday)
+		return FUTURE_DATE;
+	if ((m == 4 || m == 6 || m == 9 || m == 11) && d > 30)
+		return WRONG_DATE;
+	if (m == 2 && d > 28)
+		return WRONG_DATE;
+	return 0;
+}
 
+int sort_by_key(product_t *prod, int amount)
+{
+	printf("%d \n", amount);
+	for(int i = 1; i < amount; i++)
+        for(int j = 0; j < amount - i; j++)
+            if(strcmp(prod[j].class_name, prod[j+1].class_name) > 0)
+			{
+				product_t str;
+                str =  prod[j];
+                prod[j] = prod[j+1];
+                prod[j+1] = str;
+			}
+	for(int i = 1; i < amount; i++)
+        for(int j = 0; j < amount - i; j++)
+            if(strcmp(prod[j].class_name, prod[j+1].class_name) == 0 
+				&& strcmp(prod[j].name, prod[j+1].name) > 0)
+			{
+				product_t str;
+                str =  prod[j];
+                prod[j] = prod[j+1];
+                prod[j+1] = str;
+			}
+	return 0;
+}
 #endif

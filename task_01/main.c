@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "main.h"
+#include "struct.h"
+#include "struct_io.h"
 
 void error_message(int code)
 {
