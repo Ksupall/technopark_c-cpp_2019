@@ -1,5 +1,5 @@
-#ifndef __MAIN__H__
-#define __MAIN__H__
+#ifndef __SRUCT__H__
+#define __SRUCT__H__
 
 #define OK 0
 #define NO_FILENAME -1
@@ -35,7 +35,6 @@ int check_date(int d, int m, int y);
 int read_from_file(FILE **fin, product_t **p, int *amount);
 void output(product_t *prod, int amount);
 int sort_by_key(product_t *prod, int amount);
-void error_message(int code);
 void print_products(product_t *prod, int amount);
 
 #endif
