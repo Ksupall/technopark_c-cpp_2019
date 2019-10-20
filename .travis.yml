@@ -31,7 +31,7 @@ jobs:
     - make
 
     stage: memcheck
-    script: valgrind --tool=memcheck ./task_01/task_01 -memcheck
+    script: valgrind --leak-check=full -q ./task_01/task_01
 
     stage: test
     script: ctest --output-on-failure
