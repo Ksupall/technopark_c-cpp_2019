@@ -6,26 +6,41 @@
 
 void error_message(int code)
 {
-	if (code == NO_FILENAME)
-		printf("No filename!\n");
-	else if (code == ERR_FILE)
-		printf("Couldn't open file!\n");
-	else if (code == EMPTY_FILE)
-		printf("File is empty!\n");
-	else if (code == WRONG_FILE)
-		printf("File has wrong construction!\n");
-	else if (code == WRONG_YEAR)
-		printf("Wrong year!\n");
-	else if (code == WRONG_MONTH)
-		printf("Wrong month!\n");
-	else if (code == WRONG_DAY)
-		printf("Wrong day!\n");
-	else if (code == FUTURE_DATE)
-		printf("Future date!\n");
-	else if (code == WRONG_DATE)
-		printf("Date is wrong!\n");
-	else if (code == ERR_MEMORY)
-		printf("Memory allocation error!\n");
+	switch (code)
+	{
+		case NO_FILENAME:
+			printf("No filename!\n");
+			break;
+		case ERR_FILE:
+			printf("Couldn't open file!\n");
+			break;
+		case EMPTY_FILE:
+			printf("File is empty!\n");
+			break;
+		case WRONG_FILE:
+			printf("File has wrong construction!\n");
+			break;
+		case WRONG_YEAR:
+			printf("Wrong year!\n");
+			break;
+		case WRONG_MONTH:
+			printf("Wrong month!\n");
+			break;
+		case WRONG_DAY:
+			printf("Wrong day!\n");
+			break;
+		case FUTURE_DATE:
+			printf("Future date!\n");
+			break;
+		case WRONG_DATE:
+			printf("Date is wrong!\n");
+			break;
+		case ERR_MEMORY:
+			printf("Memory allocation error!\n");
+			break;
+		default:
+			printf("Error!\n");
+	}
 }
 
 int main()
