@@ -9,10 +9,16 @@ stages:
 
 language: cpp
 
+env:
+    - CLANG_VERSION="6.0"
+
 jobs:
   include:
     before_install:
     - sudo apt update
+    - sudo apt install clang-format-${CLANG_VERSION} -version || true
+    - vim --version
+    - clang-format --version
     - sudo apt install valgrind
     - sudo apt install cmake
     - sudo apt install libgtest-dev
