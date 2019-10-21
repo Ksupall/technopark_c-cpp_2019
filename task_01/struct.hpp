@@ -18,17 +18,17 @@
 #define VERSION_LEN 10
 
 typedef struct {
-	int day;
-	int month;
-	int year;
+  int day;
+  int month;
+  int year;
 } date_t;
 
 typedef struct {
-	char name[NAME_LEN];
-	char class_name[CLASS_LEN];
-	char version[VERSION_LEN];
-	date_t install_date;
-	date_t update_date;
+  char name[NAME_LEN];
+  char class_name[CLASS_LEN];
+  char version[VERSION_LEN];
+  date_t install_date;
+  date_t update_date;
 } product_t;
 
 int read_from_file(FILE **fin, product_t **p, int *amount);
