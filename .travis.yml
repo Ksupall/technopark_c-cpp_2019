@@ -41,4 +41,5 @@ jobs:
 
     stage: test
     script: ctest --output-on-failure
+            clang-format -style=LLVM main.cpp
     after_script: make clean
