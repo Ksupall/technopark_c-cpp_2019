@@ -51,7 +51,7 @@ int main() {
     error_message(err_code);
     return err_code;
   }
-  int amount;
+  int amount = 0;
   product_t *prod = NULL;
   err_code = read_from_file(&fin, &prod, &amount);
   if (err_code != OK) {
