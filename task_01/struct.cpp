@@ -6,10 +6,11 @@
 
 int read_from_file(FILE **fin, product_t **p, int *amount)
 {
+  // am - какое количество полей структуры мы уже прочитали
   int name_len = 0, class_len = 0, version_len = 0, am = 0;
   int i = 0, sc, rc;
-  char temp;
-  int day, month, year;
+  char temp = 0;
+  int day = 0, month = 0, year = 0;
   
   sc = fscanf(*fin, "%d\n", amount);
   if (sc == EOF)
