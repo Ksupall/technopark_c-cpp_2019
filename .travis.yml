@@ -5,14 +5,12 @@ update: true
 stages:
   - build
   - memcheck
-  - stylecheck
   - test
 
 language: cpp
 
 env:
     - CLANG_VERSION="6.0"
-    - TEST="CppCheck"
 
 jobs:
   include:
@@ -43,12 +41,6 @@ jobs:
 
     stage: stylecheck
     script: clang-format -style=LLVM task_01/main.cpp -i
-    
-    stage: cppcheck
-    script:
-    - cmake -DENABLE_CPPCHECK=ON -DCMAKE_CXX_COMPILER="g++" ..
-    - make
-    - make check
     
     stage: test
     script: ctest
