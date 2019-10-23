@@ -40,6 +40,6 @@ jobs:
     script: valgrind --leak-check=full -q ./task_01/task_01
 
     stage: test
-    script: ctest --output-on-failure
+    script: ctest
             clang-format -style=LLVM task_01/main.cpp -i
     after_script: make clean
