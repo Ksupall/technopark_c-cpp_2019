@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,6 +7,7 @@
 
 int read_from_file(FILE **fin, product_t **p, int *amount)
 {
+  assert(*fin);
   // am - какое количество полей структуры мы уже прочитали
   int name_len = 0, class_len = 0, version_len = 0, am = 0;
   int i = 0, sc, rc;
@@ -82,6 +84,8 @@ int read_from_file(FILE **fin, product_t **p, int *amount)
 //вывод на экран результата задачи
 void output(product_t *prod, int amount, int *key)
 {
+  assert(prod);
+  assert(key);
   struct tm *tim;
   time_t tt = time(NULL);
   tim = localtime(&tt);
@@ -125,6 +129,7 @@ void output(product_t *prod, int amount, int *key)
 // вывод на экран всего списка
 void print_products(product_t *prod, int amount)
 {
+  assert(prod);
   printf("\n№      NAME\t\t  FUNCTION CLASS\tVERSION\t\tINSTALL DATE\tUPDATE DATE\n\n");
   for (int i = 0; i < amount; i++)
   {
@@ -187,6 +192,8 @@ int check_date(int d, int m, int y)
 
 int sort_by_key(product_t *prod, int amount, int *key)
 {
+  assert(prod);
+  assert(key);
   for(int i = 1; i < amount; i++)
         for(int j = 0; j < amount - i; j++)
             if(strcmp(prod[key[j]].class_name, prod[key[j+1]].class_name) > 0)
