@@ -6,7 +6,7 @@
 
 int read_from_file(FILE **fin, product_t **p, int *amount)
 {
-  int a1 = 0, a2 = 0, a3 = 0, am = 0;
+  int name_len = 0, class_len = 0, version_len = 0, am = 0;
   int i = 0, sc, rc;
   char temp;
   int day, month, year;
@@ -27,11 +27,11 @@ int read_from_file(FILE **fin, product_t **p, int *amount)
     if (sc != EOF && temp != '\n' && temp != '|')
     {
       if (am == 0)
-        (*p)[i].name[a1++] = temp;
+        (*p)[i].name[name_len++] = temp;
       if (am == 1)
-        (*p)[i].class_name[a2++] = temp;
+        (*p)[i].class_name[class_len++] = temp;
       if (am == 2)
-        (*p)[i].version[a3++] = temp;
+        (*p)[i].version[version_len++] = temp;
       if (am == 3)
       {
         rc = fscanf(*fin, " %d.%d.%d", &day, &month, &year);
@@ -63,13 +63,13 @@ int read_from_file(FILE **fin, product_t **p, int *amount)
     }
     if (sc == EOF || temp == '\n')
     {
-      (*p)[i].name[a1] = '\0';
-      (*p)[i].class_name[a2] = '\0';
-      (*p)[i].version[a3] = '\0';
+      (*p)[i].name[name_len] = '\0';
+      (*p)[i].class_name[class_len] = '\0';
+      (*p)[i].version[version_len] = '\0';
       i++;
-      a1 = 0;
-      a2 = 0;
-      a3 = 0;
+      name_len = 0;
+      class_len = 0;
+      version_len = 0;
       am = 0;
     }
   }
