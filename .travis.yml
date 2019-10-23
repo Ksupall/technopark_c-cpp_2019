@@ -5,7 +5,6 @@ update: true
 stages:
   - build
   - memcheck
-  - cppcheck
   - stylecheck
   - test
 
@@ -13,6 +12,7 @@ language: cpp
 
 env:
     - CLANG_VERSION="6.0"
+    - TEST="CppCheck"
 
 jobs:
   include:
@@ -21,9 +21,6 @@ jobs:
     - sudo apt install clang-format-${CLANG_VERSION} -version || true
     - vim --version
     - clang-format --version
-    - unzip cppcheck-master.zip
-    - cd cppcheck-master
-    - make
     - sudo apt install valgrind
     - sudo apt install cmake
     - sudo apt install libgtest-dev
@@ -44,11 +41,14 @@ jobs:
     stage: memcheck
     script: valgrind --leak-check=full -q ./task_01/task_01
 
-    stage: cppcheck
-    script: ./cppcheck-master/cppcheck -q -j4 --enable=performance,portability,warning,style npp.6.5.3.src/ 2> npp.out
-    
     stage: stylecheck
     script: clang-format -style=LLVM task_01/main.cpp -i
+    
+    stage: cppcheck
+    script:
+    - cmake -DENABLE_CPPCHECK=ON -DCMAKE_CXX_COMPILER="g++" ..
+    - make
+    - make check
     
     stage: test
     script: ctest
