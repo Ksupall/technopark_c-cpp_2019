@@ -39,6 +39,7 @@ jobs:
     before_script:
     - cd $TASK_DIR
     - cmake CMakeLists.txt
+    - make
 
     stage: memcheck
     script: valgrind --leak-check=full -q ./task_02/task_02
