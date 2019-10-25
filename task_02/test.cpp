@@ -13,8 +13,9 @@ int create_string(char *string, int len) {
                   'V', 'B', 'N', 'M'};
   for (int i = 0; i < len; i++) {
       int a = rand() % 52;
-      string[i] = four_symb[a];
-    }
+      string[i] = symb[a];
+  }
+  return 0;
 }
 
 TEST(comare_libs, len_is_null)
