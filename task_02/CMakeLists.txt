@@ -27,4 +27,4 @@ target_link_libraries(${TEST_NAME} serial_work)
 target_link_libraries(${TEST_NAME} parallel_work) 
 target_link_libraries(${TEST_NAME} GTest::GTest GTest::Main)
 
-add_test(NAME Task02Tests COMMAND ${TEST_NAME})
+add_test(NAME Task02Tests COMMAND ${TEST_NAME} pthread)
