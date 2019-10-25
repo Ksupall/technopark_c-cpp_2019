@@ -13,18 +13,21 @@ include_directories(${GTEST_INCLUDE_DIRS})
 set(APP_NAME main.exe)
 set(TEST_NAME test.exe)
 
+ 
 add_library(serial_work STATIC serial_work.cpp) 
-add_library(parallel_work SHARED parallel_work.cpp)
+add_library(parallel_work SHARED parallel_work.cpp) 
 
 add_executable(${APP_NAME} main.cpp) 
 
 target_link_libraries(${APP_NAME} serial_work) 
 target_link_libraries(${APP_NAME} parallel_work)
+target_link_libraries(${APP_NAME} pthread)
 
 add_executable(${TEST_NAME} test.cpp) 
 
 target_link_libraries(${TEST_NAME} serial_work) 
 target_link_libraries(${TEST_NAME} parallel_work) 
-target_link_libraries(${TEST_NAME} GTest::GTest GTest::Main)
+target_link_libraries(${TEST_NAME} pthread) 
+target_link_libraries(${TEST_NAME} GTest::GTest GTest::Main) 
 
-add_test(NAME Task02Tests COMMAND ${TEST_NAME} pthread)
+add_test(NAME Task02Tests COMMAND ${TEST_NAME}) 
