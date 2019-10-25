@@ -8,6 +8,98 @@
 #define unlikely(expr) __builtin_expect(!!(expr), 0)
 #define likely(expr) __builtin_expect(!!(expr), 1)
 
+// функция, которая составляет строку из кусочков строк, берет значения на границе,
+//чтобы ничего не упустить
+char *between_parts(int len_str, char *part1, char *part2, char *part3, char *part4)
+{
+  char *part_between = (char *)calloc((len_str - 1) * 6, sizeof(char));
+  if (unlikely(!part_between))
+    return NULL;
+  int j = 0;
+  // конец первой части
+  for (int i = PART_SIZE - len_str + 1; i < PART_SIZE; i++)
+    part_between[j++] = part1[i];
+  // начало и конец второй части
+  for (int i = 0; i < len_str - 1; i++)
+    part_between[j++] = part2[i];
+  for (int i = PART_SIZE + 1 - len_str; i < PART_SIZE; i++)
+    part_between[j++] = part2[i];
+  // начало и конец третьей части
+  for (int i = 0; i < len_str - 1; i++)
+    part_between[j++] = part3[i];
+  for (int i = PART_SIZE + 1 - len_str; i < PART_SIZE; i++)
+    part_between[j++] = part3[i];
+  // начало четвертой части
+  for (int i = 0; i < len_str - 1; i++)
+    part_between[j++] = part4[i];
+  return part_between;
+}
+
+int parallel(char *argv, char *substr, int len_mainstr, int len_substr) {
+  int err_code = 0;
+  FILE *f;
+  f = fopen(argv, "r");
+  if (unlikely(!f)) {
+    err_code = ERR_FILE;
+    err_message(err_code);
+    return err_code;
+  }
+  int len_part = len_mainstr / 4;
+  char *part1 = (char *)calloc(len_part, sizeof(char));
+  if (unlikely(!part1)) {
+    err_code = MEM_ERR;
+    err_message(MEM_ERR);
+    return err_code;
+  }
+  char *part2 = (char *)calloc(len_part, sizeof(char));
+  if (unlikely(!part1)) {
+    free(part1);
+    err_code = MEM_ERR;
+    err_message(MEM_ERR);
+    return err_code;
+  }
+  char *part3 = (char *)calloc(len_part, sizeof(char));
+  if (unlikely(!part3)) {
+    free(part1);
+    free(part2);
+    err_code = MEM_ERR;
+    err_message(MEM_ERR);
+    return err_code;
+  }
+  char *part4 = (char *)calloc(len_part, sizeof(char));
+  if (unlikely(!part1)) {
+    free(part1);
+    free(part2);
+    free(part3);
+    err_code = MEM_ERR;
+    err_message(MEM_ERR);
+    return err_code;
+  }
+  for (int j = 0; j < len_part; j++)
+    fscanf(f, "%c", &(part1[j]));
+  for (int j = 0; j < len_part; j++)
+    fscanf(f, "%c", &(part2[j]));
+  for (int j = 0; j < len_part; j++)
+    fscanf(f, "%c", &(part3[j]));
+  for (int j = 0; j < len_part; j++)
+    fscanf(f, "%c", &(part4[j]));
+  fclose(f);
+
+  char *part_between = between_parts(len_substr, part1, part2, part3, part4);
+  
+  task_args res = mult_threaded(part1, part2, part3, part4, part_between,
+                               substr, len_part, len_substr);
+  int result = res.result;
+  free_args(res);
+
+  free(part1);
+  free(part2);
+  free(part3);
+  free(part4);
+  free(part_between);
+  return result;
+}
+
 void *thread_func(void *args) {
   task_args *arg = (task_args *) args;
   int len_str = strlen(arg->str);

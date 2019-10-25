@@ -20,12 +20,9 @@ int create_string(char *string, int len) {
 
 TEST(comare_libs, len_is_null)
 {
-  /*
-  char *str = (char *)calloc(100, sizeof(char));
-  create_string(str, 100);
-  char substr[]  = {'a', 'n', 'K'};
-  int res = find_matchings(str, substr, 100, 3);
-  */
+  char str[] = "yes";
+  int res_ser = serial("data/in_0.txt", substr, SIZE, len_substr); 
+  int res_parall = parallel("data/in_0.txt", substr, SIZE, len_substr);
   ASSERT_EQ(2, 2);
 }
 

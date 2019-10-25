@@ -4,6 +4,7 @@
 
 int main () {
   srand(time(NULL));
+  /*
   char four_symb[20][5] = {"tree", "foot", "door", "bear", "vibe",
                           "neck", "rose", "week", "bike", "beer",
                           "road", "year", "kite", "wine", "fork",
@@ -21,24 +22,11 @@ int main () {
                   'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S',
                   'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C',
                   'V', 'B', 'N', 'M'};
+                  */
   FILE *f;
-  f = fopen("in_0.txt", "w");
+  f = fopen("data/in_0.txt", "w");
   if (!f)
     printf("Couldn't find file!\n");
-  for (int i = 0; i < 102400; i++) {
-    for (int i = 0; i < 25; i++) {
-      int a = rand() % 20;
-      fprintf(f, "%s", four_symb[a]);
-    }
-    for (int i = 0; i < 100; i++) {
-      int a = rand() % 35;
-      fprintf(f, "%s", five_symb[a]);
-    }
-    for (int i = 0; i < 424; i++) {
-      int a = rand() % 52;
-      fprintf(f, "%c", symb[a]);
-    }
-  }
   fclose(f);
   return 0;
 }
