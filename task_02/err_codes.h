@@ -9,4 +9,6 @@
 #define ZERO_SUBSTR -5
 #define ERR -6
 
+void err_message(int code);
+
 #endif

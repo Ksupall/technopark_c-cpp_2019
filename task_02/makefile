@@ -9,7 +9,7 @@ ifeq ($(mode), debug)
 	CFLAGS += -g3 -ggdb
 endif
 
-app.exe : serial_work.o parallel_work.o main.o
+app.exe : serial_work.o parallel_work.o err_codes.o main.o
 	$(CC) $^ -o $@
 	
 file.exe : create_file.o

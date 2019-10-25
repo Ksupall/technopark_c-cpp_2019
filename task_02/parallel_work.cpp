@@ -57,47 +57,21 @@ task_args mult_threaded(char *part1, char *part2, char *part3,
   int status;
   int status_addr;
   task_args args;
-  int err_code = 0;
   args.part1 = (char *)calloc(PART_SIZE, sizeof(char));
-  if (unlikely(!part1)) {
-    err_code = MEM_ERR;
+  if (unlikely(!part1))
     err_message(MEM_ERR);
-    return err_code;
-  }
   args.part2 = (char *)calloc(PART_SIZE, sizeof(char));
-  if (unlikely(!part1)) {
-    free(part1);
-    err_code = MEM_ERR;
+  if (unlikely(!part1))
     err_message(MEM_ERR);
-    return err_code;
-  }
   args.part3 = (char *)calloc(PART_SIZE, sizeof(char));
-  if (unlikely(!part3)) {
-    free(part1);
-    free(part2);
-    err_code = MEM_ERR;
+  if (unlikely(!part3))
     err_message(MEM_ERR);
-    return err_code;
-  }
   args.part4 = (char *)calloc(PART_SIZE, sizeof(char));
-  if (unlikely(!part1)) {
-    free(part1);
-    free(part2);
-    free(part3);
-    err_code = MEM_ERR;
+  if (unlikely(!part1))
     err_message(MEM_ERR);
-    return err_code;
-  }
   args.part_betw = (char *)calloc((len_str-1) * 6, sizeof(char));
-  if (unlikely(!part_betw)) {
-    free(part1);
-    free(part2);
-    free(part3);
-    free(part4);
-    err_code = MEM_ERR;
+  if (unlikely(!part_betw))
     err_message(MEM_ERR);
-    return err_code;
-  }
   for (int i = 0; i < PART_SIZE; i++) {
     args.part1[i] = part1[i];
     args.part2[i] = part2[i];
@@ -107,16 +81,8 @@ task_args mult_threaded(char *part1, char *part2, char *part3,
   for (int i = 0; i < (len_str-1) * 6; i++)
     part_betw[i] = part_betw[i];
   args.str = (char *)calloc(len_str, sizeof(char));
-  if (unlikely(!part_betw)) {
-    free(part1);
-    free(part2);
-    free(part3);
-    free(part4);
-    free(part_betw);
-    err_code = MEM_ERR;
+  if (unlikely(!part_betw))
     err_message(MEM_ERR);
-    return err_code;
-  }
   for (int i = 0; i < len_str; i++)
     args.str[i] = string[i];
   args.i = 0;

@@ -1,5 +1,5 @@
 #include <stdio.h>
-#inlide "err_codes.h"
+#include "err_codes.h"
 
 void err_message(int code) {
   switch (code) {
