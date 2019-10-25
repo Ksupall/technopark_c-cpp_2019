@@ -11,7 +11,9 @@ stages:
 language: cpp
 
 env:
-    - CLANG_VERSION="6.0"
+    - CLANG_VERSION="6.0" 
+    - TASK_DIR=task_01 
+    - TASK_DIR=task_02
 
 jobs:
   include:
@@ -24,7 +26,7 @@ jobs:
     - sudo apt install cmake
     - sudo apt install libgtest-dev
     - cd /usr/src/gtest
-    - sudo cmake CMakeLists.txt
+    - sudo cmake
     - sudo make
     - sudo cp *.a /usr/lib
     - cd -
@@ -35,11 +37,8 @@ jobs:
     
     stage: build
     before_script:
-    - mkdir build
-    - cd build
-    - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_CONFIGURATION -DTARGET_CPU=$TARGET_CPU
-    - cmake --build .
-    - make
+    - cd $TASK_DIR
+    - cmake CMakeLists.txt
 
     stage: memcheck
     script: valgrind --leak-check=full -q ./task_02/task_02
