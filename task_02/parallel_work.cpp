@@ -5,6 +5,30 @@
 #include "parallel_work.h"
 #include <pthread.h>
 
+#define unlikely(expr) __builtin_expect(!!(expr), 0)
+#define likely(expr) __builtin_expect(!!(expr), 1)
+
+void err_message(int code) {
+  switch (code) {
+    case NO_FILENAME:
+      printf("No filename!\n");
+      break;
+    case ERR_FILE:
+      printf("Couldn't open file!\n");
+      break;
+    case MEM_ERR:
+      printf("Memory allocation error!\n");
+      break;
+    case ZERO_MAINSTR:
+      printf("String where we find substring has zero length!\n");
+      break;
+    case ZERO_SUBSTR:
+      printf("Substring has zero length!\n");
+  default:
+      printf("Error!\n");
+  } 
+}
+
 void *thread_func(void *args) {
   task_args *arg = (task_args *) args;
   int len_str = strlen(arg->str);
@@ -54,6 +78,7 @@ task_args mult_threaded(char *part1, char *part2, char *part3,
   int status;
   int status_addr;
   task_args args;
+  int err_code = 0;
   args.part1 = (char *)calloc(PART_SIZE, sizeof(char));
   if (unlikely(!part1)) {
     err_code = MEM_ERR;

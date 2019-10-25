@@ -12,27 +12,6 @@
 #define unlikely(expr) __builtin_expect(!!(expr), 0)
 #define likely(expr) __builtin_expect(!!(expr), 1)
 
-void err_message(int code) {
-  switch (code) {
-    case NO_FILENAME:
-      printf("No filename!\n");
-      break;
-    case ERR_FILE:
-      printf("Couldn't open file!\n");
-      break;
-    case MEM_ERR:
-      printf("Memory allocation error!\n");
-      break;
-    case ZERO_MAINSTR:
-      printf("String where we find substring has zero length!\n");
-      break;
-    case ZERO_SUBSTR:
-      printf("Substring has zero length!\n");
-  default:
-      printf("Error!\n");
-  } 
-}
-
 // функция, которая составляет строку из кусочков строк, берет значения на границе,
 //чтобы ничего не упустить
 char *between_parts(int len_str, char *part1, char *part2, char *part3, char *part4)
@@ -170,7 +149,7 @@ int main (int argc, char *argv[]) {
     err_message(rc);
     return rc;
   }
-  
+
   serial(argv, substr, len_substr);
   parallel(argv, substr, len_substr);
 
