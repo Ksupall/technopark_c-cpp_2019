@@ -3,6 +3,7 @@ apt:
 update: true
 
 stages:
+  - stylecheck
   - build
   - memcheck
   - test
@@ -28,6 +29,10 @@ jobs:
     - sudo cp *.a /usr/lib
     - cd -
     
+    stage: stylecheck
+    before_script:
+    - cppcheck --std=c++11 -q --enable=all --error-exitcode=1 
+    
     stage: build
     before_script:
     - mkdir build
@@ -38,9 +43,6 @@ jobs:
 
     stage: memcheck
     script: valgrind --leak-check=full -q ./task_01/task_01
-
-    stage: stylecheck
-    script: clang-format -style=LLVM task_01/main.cpp -i
     
     stage: test
     script: ctest
