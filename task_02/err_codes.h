@@ -5,8 +5,8 @@
 #define NO_FILENAME -1
 #define ERR_FILE -2
 #define MEM_ERR -3
-#define ZERO_LINE -4
-#define ZERO_STR -5
+#define ZERO_MAINSTR -4
+#define ZERO_SUBSTR -5
 #define ERR -6
 
 #endif
