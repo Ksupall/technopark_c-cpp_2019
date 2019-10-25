@@ -6,7 +6,6 @@
 #include <string.h>
 
 int read_string(char **str, int *len);
-int find_matchings(char *line, char *str);
-void print_string(char *str);
+int find_matchings(char *line, char *str, int mainstr, int len_substr);
 
 #endif
