@@ -24,8 +24,8 @@ jobs:
     - sudo apt install cmake
     - sudo apt install libgtest-dev
     - cd /usr/src/gtest
-    - sudo cmake
-    - sudo make .
+    - sudo cmake .
+    - sudo make
     - sudo cp *.a /usr/lib
     - cd -
     
