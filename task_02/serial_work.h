@@ -1,5 +1,5 @@
-#ifndef __STRING__WORK__H__
-#define __STRING__WORK__H__
+#ifndef __SERIAL__WORK__H__
+#define __SERIAL__WORK__H__
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,8 +11,10 @@
 #define MEM_ERR -3
 #define ZERO_LINE -4
 #define ZERO_STR -5
+#define ERR -6
 
 int read_string(char **str, int *len);
-void print_string(char *str, int len);
+int find_matchings(char *line, char *str);
+void print_string(char *str);
 
 #endif

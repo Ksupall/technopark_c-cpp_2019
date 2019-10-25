@@ -1,6 +1,5 @@
-CC := g++
-
-CFLAGS := -std=c11 -Wall
+CC := gcc
+CFLAGS := -std=c11 -Wall -Werror
 
 ifeq ($(mode), release)
 	CFLAGS += -DNDEBUG -g0
@@ -10,13 +9,13 @@ ifeq ($(mode), debug)
 	CFLAGS += -g3 -ggdb
 endif
 
-app.exe : main.o
+app.exe : serial_work.o main.o
 	$(CC) $^ -o $@
 	
 file.exe : create_file.o
 	$(CC) $^ -o $@
-
-%.o : %.cpp *.h
+	
+%.o : %.c *.h
 	$(CC) $(CFLAGS) -c $<
 
 clean :
