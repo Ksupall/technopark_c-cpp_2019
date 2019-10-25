@@ -7,6 +7,9 @@
 #define SIZE 104857600
 #define MIN_SIZE 10
 
+#define unlikely(expr) __builtin_expect(!!(expr), 0)
+#define likely(expr) __builtin_expect(!!(expr), 1)
+
 void err_message(int code) {
   switch (code) {
     case NO_FILENAME:
@@ -38,27 +41,27 @@ int main (int argc, char *argv[]) {
   }
   printf("Enter string you want to find in file: ");
   char *str = (char *)calloc(MIN_SIZE, sizeof(char));
-  if (!str) {
+  if (unlikely(!str)) {
     err_code = MEM_ERR;
     err_message(err_code);
     return err_code;
   }
   int len_str = MIN_SIZE;
   int rc = read_string(&str, &len_str);
-  if (rc != OK) {
+  if (unlikely(rc != OK)) {
     free(str);
     err_message(rc);
     return rc;
   }
   FILE *f;
   f = fopen(argv[1], "r");
-  if (!f) {
+  if (unlikely(!f)) {
     err_code = ERR_FILE;
     err_message(err_code);
     return err_code;
   }
   char *string = (char *)calloc(SIZE, sizeof(char));
-  if (!string) {
+  if (unlikely(!string)) {
     err_code = MEM_ERR;
     err_message(err_code);
     return err_code;

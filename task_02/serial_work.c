@@ -4,20 +4,24 @@
 #include "err_codes.h"
 #include "serial_work.h"
 
+#define unlikely(expr) __builtin_expect(!!(expr), 0)
+#define likely(expr) __builtin_expect(!!(expr), 1)
+
+
 int read_string(char **str, int *len) {
   char temp = 0;
   int rc = 0;
   int i = 0;
   do {
     rc = scanf("%c", &temp);
-    if (rc != 1)
+    if (unlikely(rc != 1))
       return ERR;
     if (temp == '\n')
       break;
     if (i >= *len)
     {
       char *t = (char *)realloc(*str, (*len + 1) * sizeof(char));
-      if (!t)
+      if (unlikely(!t))
         return MEM_ERR;
       *str = t;
       *len += 1;
@@ -28,7 +32,7 @@ int read_string(char **str, int *len) {
   if (*len > i)
   {
     char *t = (char *)realloc(*str, i * sizeof(char));
-    if (!t)
+    if (unlikely(!t))
       return MEM_ERR;
     *str = t;
     *len = i;
@@ -42,9 +46,9 @@ int find_matchings(char *line, char *str) {
   len_line = strlen(line);
   len_str = strlen(str);
   int amount = 0;
-  if (len_line == 0)
+  if (unlikely(len_line == 0))
     return ZERO_LINE;
-  else if (len_str == 0)
+  else if (unlikely(len_str == 0))
     return ZERO_STR;
   else
   for (int i = 0; i < len_line - len_str + 1; i++)
