@@ -14,10 +14,10 @@ set(APP_NAME main.exe)
 set(TEST_NAME test.exe)
 
  
-add_library(serial_work STATIC serial_work.cpp) 
-add_library(parallel_work SHARED parallel_work.cpp) 
+add_library(serial_work STATIC serial_work.cpp err_codes.cpp) 
+add_library(parallel_work SHARED parallel_work.cpp err_codes.cpp) 
 
-add_executable(${APP_NAME} main.cpp) 
+add_executable(${APP_NAME} main.cpp err_codes.cpp) 
 
 target_link_libraries(${APP_NAME} serial_work) 
 target_link_libraries(${APP_NAME} parallel_work)
