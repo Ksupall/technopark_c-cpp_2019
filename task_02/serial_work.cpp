@@ -7,7 +7,6 @@
 #define unlikely(expr) __builtin_expect(!!(expr), 0)
 #define likely(expr) __builtin_expect(!!(expr), 1)
 
-
 int read_string(char **str, int *len) {
   char temp = 0;
   int rc = 0;
