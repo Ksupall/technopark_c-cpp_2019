@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "err_codes.h"
 #include "serial_work.h"
 
 #define SIZE 104857600
