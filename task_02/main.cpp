@@ -39,53 +39,53 @@ char *between_parts(int len_str, char *part1, char *part2, char *part3, char *pa
   return part_between;
 }
 
-int serial(char *argv[], char *substr, int len_substr) {
+int serial(char *argv, char *substr, int len_mainstr, int len_substr) {
   int err_code = 0;
   FILE *f;
-  f = fopen(argv[1], "r");
+  f = fopen(argv, "r");
   if (unlikely(!f)) {
     err_code = ERR_FILE;
     err_message(err_code);
     return err_code;
   }
-  char *mainstr = (char *)calloc(SIZE, sizeof(char));
+  char *mainstr = (char *)calloc(len_mainstr, sizeof(char));
   if (unlikely(!mainstr)) {
     err_code = MEM_ERR;
     err_message(err_code);
     return err_code;
   }
-  for (int i = 0; i < SIZE; i++)
+  for (int i = 0; i < len_mainstr; i++)
     fscanf(f, "%c", &(mainstr[i]));
   fclose(f);
-  int result = find_matchings(mainstr, substr, SIZE, len_substr);
-  printf("Serial result = %d\n", result);  
+  int result = find_matchings(mainstr, substr, len_mainstr, len_substr); 
   free(mainstr);
-  return 0;
+  return result;
 }
 
-int parallel(char *argv[], char *substr, int len_substr) {
+int parallel(char *argv, char *substr, int len_mainstr, int len_substr) {
   int err_code = 0;
   FILE *f;
-  f = fopen(argv[1], "r");
+  f = fopen(argv, "r");
   if (unlikely(!f)) {
     err_code = ERR_FILE;
     err_message(err_code);
     return err_code;
   }
-  char *part1 = (char *)calloc(PART_SIZE, sizeof(char));
+  int len_part = len_mainstr / 4;
+  char *part1 = (char *)calloc(len_part, sizeof(char));
   if (unlikely(!part1)) {
     err_code = MEM_ERR;
     err_message(MEM_ERR);
     return err_code;
   }
-  char *part2 = (char *)calloc(PART_SIZE, sizeof(char));
+  char *part2 = (char *)calloc(len_part, sizeof(char));
   if (unlikely(!part1)) {
     free(part1);
     err_code = MEM_ERR;
     err_message(MEM_ERR);
     return err_code;
   }
-  char *part3 = (char *)calloc(PART_SIZE, sizeof(char));
+  char *part3 = (char *)calloc(len_part, sizeof(char));
   if (unlikely(!part3)) {
     free(part1);
     free(part2);
@@ -93,7 +93,7 @@ int parallel(char *argv[], char *substr, int len_substr) {
     err_message(MEM_ERR);
     return err_code;
   }
-  char *part4 = (char *)calloc(PART_SIZE, sizeof(char));
+  char *part4 = (char *)calloc(len_part, sizeof(char));
   if (unlikely(!part1)) {
     free(part1);
     free(part2);
@@ -102,21 +102,21 @@ int parallel(char *argv[], char *substr, int len_substr) {
     err_message(MEM_ERR);
     return err_code;
   }
-  for (int j = 0; j < PART_SIZE; j++)
+  for (int j = 0; j < len_part; j++)
     fscanf(f, "%c", &(part1[j]));
-  for (int j = 0; j < PART_SIZE; j++)
+  for (int j = 0; j < len_part; j++)
     fscanf(f, "%c", &(part2[j]));
-  for (int j = 0; j < PART_SIZE; j++)
+  for (int j = 0; j < len_part; j++)
     fscanf(f, "%c", &(part3[j]));
-  for (int j = 0; j < PART_SIZE; j++)
+  for (int j = 0; j < len_part; j++)
     fscanf(f, "%c", &(part4[j]));
   fclose(f);
 
   char *part_between = between_parts(len_substr, part1, part2, part3, part4);
   
   task_args res = mult_threaded(part1, part2, part3, part4, part_between,
-                               substr, len_substr);
-  printf("Parallel result = %d", res.result);
+                               substr, len_part, len_substr);
+  int result = res.result;
   free_args(res);
 
   free(part1);
@@ -124,7 +124,7 @@ int parallel(char *argv[], char *substr, int len_substr) {
   free(part3);
   free(part4);
   free(part_between);
-  return 0;
+  return result;
 }
 
 int main (int argc, char *argv[]) {
@@ -150,8 +150,10 @@ int main (int argc, char *argv[]) {
     return rc;
   }
 
-  serial(argv, substr, len_substr);
-  parallel(argv, substr, len_substr);
+  int res_ser = serial(argv[1], substr, SIZE, len_substr);
+  printf("Serial result = %d\n", res_ser); 
+  int res_parall = parallel(argv[1], substr, SIZE, len_substr);
+  printf("Parallel result = %d", res_parall);
 
   free(substr);
   return 0;

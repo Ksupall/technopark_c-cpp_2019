@@ -52,27 +52,28 @@ void *thread_func(void *args) {
 }
 
 task_args mult_threaded(char *part1, char *part2, char *part3,
-                        char *part4, char *part_betw, char *string, int len_str) {
+                        char *part4, char *part_betw, char *string,
+                        int len_part, int len_str) {
   pthread_t *threads = (pthread_t *)calloc(4, sizeof(pthread_t)); // 4 потока, так как компьютер имеет 4 ядра
   int status;
   int status_addr;
   task_args args;
-  args.part1 = (char *)calloc(PART_SIZE, sizeof(char));
+  args.part1 = (char *)calloc(len_part, sizeof(char));
   if (unlikely(!part1))
     err_message(MEM_ERR);
-  args.part2 = (char *)calloc(PART_SIZE, sizeof(char));
+  args.part2 = (char *)calloc(len_part, sizeof(char));
   if (unlikely(!part1))
     err_message(MEM_ERR);
-  args.part3 = (char *)calloc(PART_SIZE, sizeof(char));
+  args.part3 = (char *)calloc(len_part, sizeof(char));
   if (unlikely(!part3))
     err_message(MEM_ERR);
-  args.part4 = (char *)calloc(PART_SIZE, sizeof(char));
+  args.part4 = (char *)calloc(len_part, sizeof(char));
   if (unlikely(!part1))
     err_message(MEM_ERR);
   args.part_betw = (char *)calloc((len_str-1) * 6, sizeof(char));
   if (unlikely(!part_betw))
     err_message(MEM_ERR);
-  for (int i = 0; i < PART_SIZE; i++) {
+  for (int i = 0; i < len_part; i++) {
     args.part1[i] = part1[i];
     args.part2[i] = part2[i];
     args.part3[i] = part3[i];
@@ -87,7 +88,7 @@ task_args mult_threaded(char *part1, char *part2, char *part3,
     args.str[i] = string[i];
   args.i = 0;
   args.result = 0;
-  args.len = PART_SIZE;
+  args.len = len_part;
 
   for (int i = 0; i < 4; i++) {
     status = pthread_create(&(threads[i]), NULL, thread_func, (void*) &args);
