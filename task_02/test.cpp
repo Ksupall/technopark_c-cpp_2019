@@ -12,9 +12,25 @@ TEST(comare_libs, empty_file)
   ASSERT_EQ(res_ser, res_parall);
 }
 
-TEST(comare_libs, subst_10_mainstr_100)
+TEST(comare_libs, subst_11_mainstr_100)
+{
+  char str[] = {'S', 'g', 'W', 't', 'X', 'd', 'd', 'k', 'j', 'p', 'u'};
+  int res_ser = serial("data/in_1.txt", str, 100, 11); 
+  int res_parall = parallel("data/in_1.txt", str, 100, 11);
+  ASSERT_EQ(res_ser, res_parall);
+}
+
+TEST(comare_libs, subst_10_mainstr_100_have)
 {
   char str[] = {'j', 't', 'k', 'm', 'o', 'y', 'm', 'P', 'L', 'e'};
+  int res_ser = serial("data/in_1.txt", str, 100, 10); 
+  int res_parall = parallel("data/in_1.txt", str, 100, 10);
+  ASSERT_EQ(res_ser, res_parall);
+}
+
+TEST(comare_libs, subst_10_mainstr_100_notHave)
+{
+  char str[] = {'j', 't', 'k', 'l', 'l', 'l', 'l', 'P', 'L', 'e'};
   int res_ser = serial("data/in_1.txt", str, 100, 10); 
   int res_parall = parallel("data/in_1.txt", str, 100, 10);
   ASSERT_EQ(res_ser, res_parall);
