@@ -7,8 +7,8 @@
 TEST(comare_libs, empty_file)
 {
   char str[] = {'y', 'e', 's'};
-  int res_ser = serial("data/in_0.txt", str, 5, 3); 
-  int res_parall = parallel("data/in_0.txt", str, 5, 3);
+  int res_ser = serial("data/in_1.txt", str, 100, 3); 
+  int res_parall = parallel("data/in_0.txt", str, 100, 3);
   ASSERT_EQ(res_ser, res_parall);
 }
 
