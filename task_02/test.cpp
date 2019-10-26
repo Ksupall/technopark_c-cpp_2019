@@ -31,8 +31,8 @@ TEST(comare_libs, subst_2_mainstr_100)
 TEST(comare_libs, subst_1_mainstr_100)
 {
   char str[] = {'j'};
-  int res_ser = serial("data/in_1.txt", str, 100, 3); 
-  int res_parall = parallel("data/in_1.txt", str, 100, 3);
+  int res_ser = serial("data/in_1.txt", str, 100, 1); 
+  int res_parall = parallel("data/in_1.txt", str, 100, 1);
   ASSERT_EQ(res_ser, res_parall);
 }
 
