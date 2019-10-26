@@ -36,6 +36,13 @@ TEST(comare_libs, subst_1_mainstr_100)
   ASSERT_EQ(res_ser, res_parall);
 }
 
+TEST(comare_libs, subst_0_mainstr_100)
+{
+  int res_ser = serial("data/in_1.txt", str, 100, 0); 
+  int res_parall = parallel("data/in_1.txt", str, 100, 0);
+  ASSERT_EQ(res_ser, res_parall);
+}
+
 int main(int argc, char **argv)
 {
     testing::InitGoogleTest(&argc, argv);

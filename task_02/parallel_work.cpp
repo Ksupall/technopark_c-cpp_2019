@@ -103,6 +103,8 @@ int parallel(char *argv, char *substr, int len_mainstr, int len_substr) {
 void *thread_func(void *args) {
   task_args *arg = (task_args *) args;
   int len_str = strlen(arg->str);
+  if (unlikely(len_str == 0))
+    return ZERO_SUBSTR;
   arg->i += 1;
   if (arg->i == 1) {
     for (int i = 0; i < arg->len - len_str + 1; i++)
