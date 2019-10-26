@@ -20,22 +20,6 @@ TEST(comare_libs, elements_100_str_3)
   ASSERT_EQ(res_ser, res_parall);
 }
 
-TEST(comare_libs, elements_100_str_2)
-{
-  char str[] = {'k', 'c'};
-  int res_ser = serial("data/in_1.txt", str, 100, 2); 
-  int res_parall = parallel("data/in_0.txt", str, 100, 2);
-  ASSERT_EQ(res_ser, res_parall);
-}
-
-TEST(comare_libs, elements_100_str_1)
-{
-  char str[] = {'k'};
-  int res_ser = serial("data/in_1.txt", str, 100, 1); 
-  int res_parall = parallel("data/in_0.txt", str, 100, 1);
-  ASSERT_EQ(res_ser, res_parall);
-}
-
 int main(int argc, char **argv)
 {
     testing::InitGoogleTest(&argc, argv);
