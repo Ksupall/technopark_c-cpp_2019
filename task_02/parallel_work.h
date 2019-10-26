@@ -18,7 +18,7 @@ typedef struct task_args{
 } task_args;
 
 
-char *between_parts(int len_str, char *part1, char *part2, 
+char *between_parts(int len_mainstr, int len_str, char *part1, char *part2, 
                     char *part3, char *part4);
 int parallel(char *argv, char *substr, int len_mainstr, int len_substr);
 task_args mult_threaded(char *part1, char *part2, char *part3,

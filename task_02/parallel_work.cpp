@@ -10,24 +10,24 @@
 
 // функция, которая составляет строку из кусочков строк, берет значения на границе,
 //чтобы ничего не упустить
-char *between_parts(int len_str, char *part1, char *part2, char *part3, char *part4)
+char *between_parts(int len_mainstr, int len_str, char *part1, char *part2, char *part3, char *part4)
 {
   char *part_between = (char *)calloc((len_str - 1) * 6, sizeof(char));
   if (unlikely(!part_between))
     return NULL;
   int j = 0;
   // конец первой части
-  for (int i = PART_SIZE - len_str + 1; i < PART_SIZE; i++)
+  for (int i =  len_mainstr - len_str + 1; i <  len_mainstr; i++)
     part_between[j++] = part1[i];
   // начало и конец второй части
   for (int i = 0; i < len_str - 1; i++)
     part_between[j++] = part2[i];
-  for (int i = PART_SIZE + 1 - len_str; i < PART_SIZE; i++)
+  for (int i =  len_mainstr + 1 - len_str; i <  len_mainstr; i++)
     part_between[j++] = part2[i];
   // начало и конец третьей части
   for (int i = 0; i < len_str - 1; i++)
     part_between[j++] = part3[i];
-  for (int i = PART_SIZE + 1 - len_str; i < PART_SIZE; i++)
+  for (int i =  len_mainstr + 1 - len_str; i <  len_mainstr; i++)
     part_between[j++] = part3[i];
   // начало четвертой части
   for (int i = 0; i < len_str - 1; i++)
@@ -85,7 +85,7 @@ int parallel(char *argv, char *substr, int len_mainstr, int len_substr) {
     fscanf(f, "%c", &(part4[j]));
   fclose(f);
 
-  char *part_between = between_parts(len_substr, part1, part2, part3, part4);
+  char *part_between = between_parts(len_mainstr, len_substr, part1, part2, part3, part4);
   
   task_args res = mult_threaded(part1, part2, part3, part4, part_between,
                                substr, len_part, len_substr);
