@@ -12,6 +12,14 @@ TEST(comare_libs, empty_file)
   ASSERT_EQ(res_ser, res_parall);
 }
 
+TEST(comare_libs, subst_10_mainstr_100)
+{
+  char str[] = {'j', 't', 'k', 'm', 'o', 'y', 'm', 'P', 'L', 'e'};
+  int res_ser = serial("data/in_1.txt", str, 100, 10); 
+  int res_parall = parallel("data/in_1.txt", str, 100, 10);
+  ASSERT_EQ(res_ser, res_parall);
+}
+
 TEST(comare_libs, subst_3_mainstr_100)
 {
   char str[] = {'j', 't', 'k'};
