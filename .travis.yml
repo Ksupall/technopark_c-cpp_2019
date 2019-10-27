@@ -1,0 +1,50 @@
+addons:
+apt:
+update: true
+
+stages:
+  - stylecheck
+  - build
+  - memcheck
+  - test
+
+language: cpp
+
+env:
+    - CLANG_VERSION="6.0"
+
+jobs:
+  include:
+    before_install:
+    - sudo apt update
+    - sudo apt install clang-format-${CLANG_VERSION} -version || true
+    - vim --version
+    - clang-format --version
+    - sudo apt install valgrind
+    - sudo apt install cmake
+    - sudo apt install libgtest-dev
+    - cd /usr/src/gtest
+    - sudo cmake CMakeLists.txt
+    - sudo make
+    - sudo cp *.a /usr/lib
+    - cd -
+    
+    stage: stylecheck
+    before_script:
+    - cppcheck --std=c++11 -q --enable=all --error-exitcode=1 
+    
+    stage: build
+    before_script:
+    - mkdir build
+    - cd build
+    - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_CONFIGURATION -DTARGET_CPU=$TARGET_CPU
+    - cmake --build .
+    - make
+
+    stage: memcheck
+    script: valgrind --leak-check=full -q ./task_01/task_01
+    
+    stage: test
+    script: ctest
+            
+    after_script: make clean

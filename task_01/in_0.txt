@@ -1,0 +1,37 @@
+36
+WordPad|Office application|12.09.03| 23.12.2001-
+Firefox|Browser|10.10.05| 11.10.2019-
+Call of Duty|Game|12.03.06|27.01.2019-
+S.T.A.L.K.E.R.|Game|15.07.18| 08.08.2019+10.08.2019
+Word|Office application|10.02.03| 22.05.2010+01.10.2018
+Adobe Indesign|Design|12.03.36| 09.08.2003+20.05.2012
+The walking dead|Game|45.48.23| 02.03.2019-
+WinRAR|Archiver|14.14.21| 24.07.2019-
+Google Chrome|Browser|10.02.15| 06.05.2005+12.04.2011
+Amigo|Browser|11.05.16| 30.09.2016+20.04.2017
+The Sims 4|Game|15.02.36| 22.05.2019-
+Maxthon|Browser|5.2.7.50| 28.06.2019+30.07.2019
+City Car Driving|Game|12.36.02| 24.12.2007+26.12.2018
+CorelDraw|Design|03.06.12| 24.07.2019-
+Dead Island|Game|78.89.25| 30.08.2019-
+7-Zip|Archiver|12.32.15| 03.03.2019+03.06.2019
+Writer|Office application|02.36.12| 13.11.2011+05.09.2017
+Hitman|Game|02.05.93| 25.08.2014+16.07.2019
+Adobe Photoshop|Design|12.03.6| 27.09.2011-
+Avant Browser|Browser|2019.02| 20.01.2018+21.05.2019
+WinZip|Archiver|17.17.17| 04.09.2006-
+Kaspersky|Antivirus|15.02.56| 12.03.2019-
+Yandex|Browser|19.10.0| 02.02.2019+11.10.2019
+HaoZip|Archiver|12.02.30| 03.03.2018-
+How to survive 2|Game|15.23.01| 03.06.2019-
+Internet Explorer|Browser|09.05.16| 03.03.2016+15.06.2017
+Calc|Office application|40.02.04| 19.07.2015-
+Opera|Browser|17.23.05| 14.09.2012+01.05.2013
+Avast|Antivirus|02.05.16| 29.03.2015+30.11.2018
+Kona|Game|12.03.07| 12.02.2019+12.08.2019
+Excel|Office application|01.02.03| 23.06.2019-
+Safari|Browser|07.01.23| 10.10.2018+01.10.2019
+This is the police|Game|03.03.02| 30.03.2019-
+PowerPoint|Office application|17.02.36| 06.04.2011+16.02.2017
+Adobe Premiere|Design|10.05.12| 08.03.2012-
+Home Behind|Game|18.18.19| 04.01.2007+21.02.2019
