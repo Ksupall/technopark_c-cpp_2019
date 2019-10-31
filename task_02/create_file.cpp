@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define OK 0
+#define ERR_FILE -1
+
 int main () {
   srand(time(NULL));
   /*
@@ -23,14 +26,15 @@ int main () {
                   'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S',
                   'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C',
                   'V', 'B', 'N', 'M'};
-  FILE *f;
-  f = fopen("data/in_1.txt", "w");
-  if (!f)
+  FILE *f = fopen("data/in_1.txt", "w");
+  if (!f) {
     printf("Couldn't find file!\n");
+    return ERR_FILE;
+  }
   for (int i = 0; i < 100; i++) {
     int a = rand() % 52;
     fprintf(f, "%c", symb[a]);
   }
   fclose(f);
-  return 0;
+  return OK;
 }
