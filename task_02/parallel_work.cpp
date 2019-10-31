@@ -32,7 +32,7 @@ void free_parts(char **parts)
 char *between_parts(int len_mainstr, int len_str, int amount_parts,
 					int len_part, char **parts)
 {
-  char *part_between = (char *)calloc((len_str - 1) * (amount_parts - 1) * 2), sizeof(char));
+  char *part_between = (char *)calloc((len_str - 1) * (amount_parts - 1) * 2, sizeof(char));
   if (unlikely(!part_between))
     return NULL;
   int j = 0;
@@ -78,7 +78,7 @@ int parallel(char *argv, char *substr, int len_mainstr, int len_substr) {
 									amount_parts, len_part, parts);
   
   task_args res = mult_threaded(amount_parts, len_part, parts, part_between,
-                               substr, len_part, len_substr);
+                               substr, len_substr);
   int result = res.result;
   free_args(res);
 
@@ -90,11 +90,11 @@ int parallel(char *argv, char *substr, int len_mainstr, int len_substr) {
 void *thread_func(void *args) {
   task_args *arg = (task_args *) args;
   int len_str = strlen(arg->str);
-  
+  int number_part = arg->i;
   arg->i += 1;
   for (int i = 0; i < arg->len - len_str + 1; i++)
     for (int j = 0; j < len_str; j++) {
-	  if (arg->str[j] != arg->parts[args->i - 1][i+j])
+	  if (arg->str[j] != arg->parts[number_part][i+j])
 	    break;
 	  else if (j == len_str - 1)
 	    arg->result += 1;
@@ -103,8 +103,7 @@ void *thread_func(void *args) {
 }
 
 task_args mult_threaded(int amount_parts, int len_part, char **parts,
-						char *part_betw, char *string, int len_part,
-						int len_str) {
+						char *part_betw, char *string, int len_str) {
   pthread_t *threads = (pthread_t *)calloc(amount_parts, sizeof(pthread_t)); // 4 потока, так как компьютер имеет 4 ядра
   int status;
   int status_addr;
