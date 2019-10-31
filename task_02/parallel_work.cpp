@@ -8,6 +8,19 @@
 #define unlikely(expr) __builtin_expect(!!(expr), 0)
 #define likely(expr) __builtin_expect(!!(expr), 1)
 
+char **create_parts(int amount_parts, int len_part)
+{
+	char *data = (char *)calloc(amount_parts * len_part, sizeof(char));
+	if (unlikely(!data))
+		return NULL;
+	char **parts = (char **)calloc(amount_parts, sizeof(char *));
+	if (unlikely(!parts))
+		return NULL;
+	for (int i = 0; i < amount_parts; i++)
+		parts[i] = data + i * len_part;
+	return parts;
+}
+
 // функция, которая составляет строку из кусочков строк, берет значения на границе,
 //чтобы ничего не упустить
 char *between_parts(int len_mainstr, int len_str, char *part1, char *part2, char *part3, char *part4)
@@ -43,36 +56,13 @@ int parallel(char *argv, char *substr, int len_mainstr, int len_substr) {
     err_message(err_code);
     return err_code;
   }
-  int len_part = len_mainstr / 4;
-  char *part1 = (char *)calloc(len_part, sizeof(char));
-  if (unlikely(!part1)) {
+  int amount_parts = 4;
+  int len_part = len_mainstr / amount_parts;
+  char **parts = create_parts(amount_parts, len_part);
+  if (unlikely(!parts)) {
     err_code = MEM_ERR;
-    err_message(MEM_ERR);
-    return err_code;
-  }
-  char *part2 = (char *)calloc(len_part, sizeof(char));
-  if (unlikely(!part1)) {
-    free(part1);
-    err_code = MEM_ERR;
-    err_message(MEM_ERR);
-    return err_code;
-  }
-  char *part3 = (char *)calloc(len_part, sizeof(char));
-  if (unlikely(!part3)) {
-    free(part1);
-    free(part2);
-    err_code = MEM_ERR;
-    err_message(MEM_ERR);
-    return err_code;
-  }
-  char *part4 = (char *)calloc(len_part, sizeof(char));
-  if (unlikely(!part1)) {
-    free(part1);
-    free(part2);
-    free(part3);
-    err_code = MEM_ERR;
-    err_message(MEM_ERR);
-    return err_code;
+	err_message(err_code);
+	return err_code;
   }
   for (int j = 0; j < len_part; j++)
     fscanf(f, "%c", &(part1[j]));
