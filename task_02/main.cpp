@@ -35,10 +35,12 @@ int main (int argc, char *argv[]) {
     err_message(rc);
     return rc;
   }
-
+  int amount_threads = 0;
+  printf("Enter amount of threads: ");
+  scanf("%d", &amount_threads);
   int res_ser = serial(argv[1], substr, SIZE, len_substr);
   printf("Serial result = %d\n", res_ser); 
-  int res_parall = parallel(argv[1], substr, SIZE, len_substr);
+  int res_parall = parallel(argv[1], substr, SIZE, len_substr, amount_threads);
   printf("Parallel result = %d", res_parall);
 
   free(substr);
