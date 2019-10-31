@@ -37,8 +37,7 @@ char *between_parts(int len_mainstr, int len_str, char *part1, char *part2, char
 
 int parallel(char *argv, char *substr, int len_mainstr, int len_substr) {
   int err_code = 0;
-  FILE *f;
-  f = fopen(argv, "r");
+  FILE *f = fopen(argv, "r");
   if (unlikely(!f)) {
     err_code = ERR_FILE;
     err_message(err_code);
