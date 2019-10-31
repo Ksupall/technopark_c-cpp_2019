@@ -20,7 +20,8 @@ char **create_parts(int amount_parts, int len_part);
 void free_parts(char **parts);
 char *between_parts(int len_mainstr, int len_str, int amount_parts,
 					int len_part, char **parts);
-int parallel(char *argv, char *substr, int len_mainstr, int len_substr);
+int parallel(char *argv, char *substr, int len_mainstr, int len_substr,
+			int amount_parts);
 task_args mult_threaded(int amount_parts, int len_part, char **parts,
 						char *part_betw, char *string, int len_str);
 void *thread_func(void *args);

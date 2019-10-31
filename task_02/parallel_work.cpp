@@ -53,7 +53,8 @@ char *between_parts(int len_mainstr, int len_str, int amount_parts,
   return part_between;
 }
 
-int parallel(char *argv, char *substr, int len_mainstr, int len_substr) {
+int parallel(char *argv, char *substr, int len_mainstr, int len_substr, 
+			int amount_parts) {
   int err_code = 0;
   FILE *f = fopen(argv, "r");
   if (unlikely(!f)) {
@@ -61,7 +62,6 @@ int parallel(char *argv, char *substr, int len_mainstr, int len_substr) {
     err_message(err_code);
     return err_code;
   }
-  int amount_parts = 4;
   int len_part = len_mainstr / amount_parts;
   char **parts = create_parts(amount_parts, len_part);
   if (unlikely(!parts)) {
