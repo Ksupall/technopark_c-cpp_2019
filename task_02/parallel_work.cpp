@@ -130,10 +130,10 @@ void *thread_func(void *args) {
   return NULL;
 }
 
-task_args mult_threaded(char *part1, char *part2, char *part3,
-                        char *part4, char *part_betw, char *string,
-                        int len_part, int len_str) {
-  pthread_t *threads = (pthread_t *)calloc(4, sizeof(pthread_t)); // 4 потока, так как компьютер имеет 4 ядра
+task_args mult_threaded(int amount_parts, int len_part, char **parts,
+						char *part_betw, char *string, int len_part,
+						int len_str) {
+  pthread_t *threads = (pthread_t *)calloc(amount_parts, sizeof(pthread_t)); // 4 потока, так как компьютер имеет 4 ядра
   int status;
   int status_addr;
   task_args args;
@@ -141,29 +141,17 @@ task_args mult_threaded(char *part1, char *part2, char *part3,
     args.result = ZERO_SUBSTR;
     return args;
   }
-  args.part1 = (char *)calloc(len_part, sizeof(char));
-  if (unlikely(!part1))
-    err_message(MEM_ERR);
-  args.part2 = (char *)calloc(len_part, sizeof(char));
-  if (unlikely(!part1))
-    err_message(MEM_ERR);
-  args.part3 = (char *)calloc(len_part, sizeof(char));
-  if (unlikely(!part3))
-    err_message(MEM_ERR);
-  args.part4 = (char *)calloc(len_part, sizeof(char));
-  if (unlikely(!part1))
-    err_message(MEM_ERR);
-  args.part_betw = (char *)calloc((len_str-1) * 6, sizeof(char));
+  args.parts = create_parts(amount_parts, len_part);
+  if (unlikely(!args.parts))
+	  err_message(MEM_ERR);
+  args.part_betw = (char *)calloc(((len_str-1) * (amount_parts - 1) * 2), sizeof(char));
   if (unlikely(!part_betw))
     err_message(MEM_ERR);
-  for (int i = 0; i < len_part; i++) {
-    args.part1[i] = part1[i];
-    args.part2[i] = part2[i];
-    args.part3[i] = part3[i];
-    args.part4[i] = part4[i];
-  }
-  for (int i = 0; i < (len_str-1) * 6; i++)
-    part_betw[i] = part_betw[i];
+  for (int i = 0; i < amount_parts; i++)
+    for (int j = 0; j < len_part; j++)
+		args.parts[i][j] = parts[i][j];
+  for (int i = 0; i < ((len_str-1) * (amount_parts - 1) * 2); i++)
+    args.part_betw[i] = part_betw[i];
   args.str = (char *)calloc(len_str, sizeof(char));
   if (unlikely(!part_betw))
     err_message(MEM_ERR);
@@ -187,7 +175,7 @@ task_args mult_threaded(char *part1, char *part2, char *part3,
       exit(ERROR_JOIN_THREAD);
     }
   }
-  int len_between = (len_str - 1) * 6;
+  int len_between = (len_str-1) * (amount_parts - 1) * 2;
   for (int i = 0; i < len_between - len_str + 1; i++)
     for (int j = 0; j < len_str; j++) {
       if (args.str[j] != args.part_betw[i+j])
@@ -202,8 +190,5 @@ task_args mult_threaded(char *part1, char *part2, char *part3,
 void free_args(task_args res) {
   free(res.str);
   free(res.part_betw);
-  free(res.part4);
-  free(res.part3);
-  free(res.part2);
-  free(res.part1);
+  free_parts(res.parts);
 }
