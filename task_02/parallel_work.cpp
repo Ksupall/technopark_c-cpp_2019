@@ -23,28 +23,27 @@ char **create_parts(int amount_parts, int len_part)
 
 // функция, которая составляет строку из кусочков строк, берет значения на границе,
 //чтобы ничего не упустить
-char *between_parts(int len_mainstr, int len_str, char *part1, char *part2, char *part3, char *part4)
+char *between_parts(int len_mainstr, int len_str, int amount_parts,
+					int len_part, char **parts)
 {
-  char *part_between = (char *)calloc((len_str - 1) * 6, sizeof(char));
+  char *part_between = (char *)calloc((len_str - 1) * (amount_parts - 1) * 2), sizeof(char));
   if (unlikely(!part_between))
     return NULL;
   int j = 0;
   // конец первой части
   for (int i =  len_mainstr - len_str + 1; i <  len_mainstr; i++)
-    part_between[j++] = part1[i];
-  // начало и конец второй части
+    part_between[j++] = parts[0][i];
+
+  for (int i = 1; i < amount_parts - 1; i++) {
+    for (int k = 0; k < len_str - 1; k++)
+      part_between[j++] = parts[i][k];
+    for (int k =  len_mainstr + 1 - len_str; k <  len_mainstr; k++)
+      part_between[j++] = parts[i][k];
+  }
+  
+  // начало последней части
   for (int i = 0; i < len_str - 1; i++)
-    part_between[j++] = part2[i];
-  for (int i =  len_mainstr + 1 - len_str; i <  len_mainstr; i++)
-    part_between[j++] = part2[i];
-  // начало и конец третьей части
-  for (int i = 0; i < len_str - 1; i++)
-    part_between[j++] = part3[i];
-  for (int i =  len_mainstr + 1 - len_str; i <  len_mainstr; i++)
-    part_between[j++] = part3[i];
-  // начало четвертой части
-  for (int i = 0; i < len_str - 1; i++)
-    part_between[j++] = part4[i];
+    part_between[j++] = parts[amount_parts-1][i];
   return part_between;
 }
 
@@ -69,7 +68,8 @@ int parallel(char *argv, char *substr, int len_mainstr, int len_substr) {
       fscanf(f, "%c", &(parts[i][j]));
   fclose(f);
 
-  char *part_between = between_parts(len_mainstr, len_substr, part1, part2, part3, part4);
+  char *part_between = between_parts(len_mainstr, len_substr, 
+									amount_parts, len_part, parts);
   
   task_args res = mult_threaded(part1, part2, part3, part4, part_between,
                                substr, len_part, len_substr);
