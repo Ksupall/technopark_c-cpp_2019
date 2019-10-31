@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "err_codes.h"
-#include "serial_work.h"
 #include "parallel_work.h"
+#include "serial_work.h"
 
 #define SIZE 104857600 //столько символов в файле 100Мб
 #define PART_SIZE 26214400 //разбила все эти символы на 4 потока
