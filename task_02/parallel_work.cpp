@@ -21,6 +21,12 @@ char **create_parts(int amount_parts, int len_part)
 	return parts;
 }
 
+void free_parts(char **parts)
+{
+	free(parts[0]);
+	free(parts);
+}
+
 // функция, которая составляет строку из кусочков строк, берет значения на границе,
 //чтобы ничего не упустить
 char *between_parts(int len_mainstr, int len_str, int amount_parts,
@@ -71,15 +77,12 @@ int parallel(char *argv, char *substr, int len_mainstr, int len_substr) {
   char *part_between = between_parts(len_mainstr, len_substr, 
 									amount_parts, len_part, parts);
   
-  task_args res = mult_threaded(part1, part2, part3, part4, part_between,
+  task_args res = mult_threaded(amount_parts, len_part, parts, part_between,
                                substr, len_part, len_substr);
   int result = res.result;
   free_args(res);
 
-  free(part1);
-  free(part2);
-  free(part3);
-  free(part4);
+  free_parts(parts);
   free(part_between);
   return result;
 }
