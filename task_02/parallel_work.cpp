@@ -135,14 +135,14 @@ task_args mult_threaded(int amount_parts, int len_part, char **parts,
   args.amount_parts = amount_parts;
   args.len_part = len_part;
 
-  for (int i = 0; i < 4; i++) {
+  for (int i = 0; i < amount_parts; i++) {
     status = pthread_create(&(threads[i]), NULL, thread_func, (void*) &args);
     if (status != OK) {
       printf("main error: can't create thread %d, status = %d\n", i, status);
       exit(ERROR_CREATE_THREAD);
     }
   }
-  for (int i = 0; i < 4; i++) {
+  for (int i = 0; i < amount_parts; i++) {
     status = pthread_join(threads[i], (void**)&status_addr);
     if (status != OK) {
       printf("main error: can't join thread %d, status = %d\n", i, status);
