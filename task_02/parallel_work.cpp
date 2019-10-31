@@ -64,14 +64,9 @@ int parallel(char *argv, char *substr, int len_mainstr, int len_substr) {
 	err_message(err_code);
 	return err_code;
   }
-  for (int j = 0; j < len_part; j++)
-    fscanf(f, "%c", &(part1[j]));
-  for (int j = 0; j < len_part; j++)
-    fscanf(f, "%c", &(part2[j]));
-  for (int j = 0; j < len_part; j++)
-    fscanf(f, "%c", &(part3[j]));
-  for (int j = 0; j < len_part; j++)
-    fscanf(f, "%c", &(part4[j]));
+  for (int i = 0; i < amount_parts; i++)
+    for (int j = 0; j < len_part; j++)
+      fscanf(f, "%c", &(parts[i][j]));
   fclose(f);
 
   char *part_between = between_parts(len_mainstr, len_substr, part1, part2, part3, part4);
