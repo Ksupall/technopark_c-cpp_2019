@@ -90,43 +90,15 @@ int parallel(char *argv, char *substr, int len_mainstr, int len_substr) {
 void *thread_func(void *args) {
   task_args *arg = (task_args *) args;
   int len_str = strlen(arg->str);
+  
   arg->i += 1;
-  if (arg->i == 1) {
-    for (int i = 0; i < arg->len - len_str + 1; i++)
-      for (int j = 0; j < len_str; j++) {
-        if (arg->str[j] != arg->part1[i+j])
-          break;
-        else if (j == len_str - 1)
-          arg->result += 1;
-      }
-  }
-  else if (arg->i == 2) {
-    for (int i = 0; i < arg->len - len_str + 1; i++)
-      for (int j = 0; j < len_str; j++) {
-        if (arg->str[j] != arg->part2[i+j])
-          break;
-        else if (j == len_str - 1)
-          arg->result += 1;
-      }
-  }
-  else if (arg->i == 3) {
-    for (int i = 0; i < arg->len - len_str + 1; i++)
-      for (int j = 0; j < len_str; j++) {
-        if (arg->str[j] != arg->part3[i+j])
-          break;
-        else if (j == len_str - 1)
-          arg->result += 1;
-      }
-  }
-  else if (arg->i == 4) {
-    for (int i = 0; i < arg->len - len_str + 1; i++)
-      for (int j = 0; j < len_str; j++) {
-        if (arg->str[j] != arg->part4[i+j])
-          break;
-        else if (j == len_str - 1)
-          arg->result += 1;
-      }
-  }
+  for (int i = 0; i < arg->len - len_str + 1; i++)
+    for (int j = 0; j < len_str; j++) {
+	  if (arg->str[j] != arg->parts[args->i - 1][i+j])
+	    break;
+	  else if (j == len_str - 1)
+	    arg->result += 1;
+    }
   return NULL;
 }
 
@@ -160,6 +132,8 @@ task_args mult_threaded(int amount_parts, int len_part, char **parts,
   args.i = 0;
   args.result = 0;
   args.len = len_part;
+  args.amount_parts = amount_parts;
+  args.len_part = len_part;
 
   for (int i = 0; i < 4; i++) {
     status = pthread_create(&(threads[i]), NULL, thread_func, (void*) &args);

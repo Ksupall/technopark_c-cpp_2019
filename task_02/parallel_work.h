@@ -9,6 +9,8 @@ typedef struct task_args{
   int len;
   int i;
   char **parts;
+  int amount_parts;
+  int len_part;
   char *part_betw;
   char *str;
   int result;
