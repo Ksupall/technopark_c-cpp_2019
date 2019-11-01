@@ -15,7 +15,7 @@
 
 int main () {
   setbuf(stdout, NULL);
-  int err_code = 0;
+  //int err_code = 0;
   char *filename[] = "data/in_1.txt";
   /*
   printf("Enter substring you want to find in file: ");

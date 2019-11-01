@@ -34,6 +34,7 @@ int serial(char *argv, char *substr, int len_mainstr, int len_substr) {
   return result;
 }
 
+/*
 int read_string(char **str, int *len) {
   char temp = 0;
   int i = 0;
@@ -64,6 +65,7 @@ int read_string(char **str, int *len) {
   }
   return OK;
 }
+*/
 
 int find_matchings(char *line, char *str, int len_mainstr, int len_substr) {
   int amount = 0;
