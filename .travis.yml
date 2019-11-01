@@ -27,7 +27,7 @@ before_install:
 
 before_script:
     - cd $TASK_DIR
-    - cmake CMakeListst.txt
+    - cmake CMakeLists.txt
     - make
     
 jobs:
