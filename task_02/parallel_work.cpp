@@ -39,19 +39,20 @@ char *between_parts(int len_mainstr, int len_str, int amount_parts,
     return NULL;
   int j = 0;
   // конец первой части
-  for (int i =  len_mainstr - len_str + 1; i <  len_mainstr; i++)
+  for (int i =  len_mainstr - len_str + 1; i < len_mainstr; i++)
     part_between[j++] = parts[0][i];
 
   for (int i = 1; i < amount_parts - 1; i++) {
     for (int k = 0; k < len_str - 1; k++)
       part_between[j++] = parts[i][k];
-    for (int k =  len_mainstr + 1 - len_str; k <  len_mainstr; k++)
-      part_between[j++] = parts[i][k];
+    for (int n = len_mainstr - len_str + 1; n < len_mainstr; n++)
+      part_between[j++] = parts[i][n];
   }
   
   // начало последней части
   for (int i = 0; i < len_str - 1; i++)
     part_between[j++] = parts[amount_parts-1][i];
+  printf("j = %d k = %d\n", j, (len_str - 1) * (amount_parts - 1) * 2);
   return part_between;
 }
 
@@ -75,7 +76,7 @@ int parallel(char *argv, char *substr, int len_mainstr, int len_substr,
     for (int j = 0; j < len_part; j++)
       fscanf(f, "%c", &(parts[i][j]));
   fclose(f);
-
+  printf("here!\n");
   char *part_between = between_parts(len_mainstr, len_substr, 
 									amount_parts, len_part, parts);
   

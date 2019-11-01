@@ -2,7 +2,11 @@ addons:
 apt:
 update: true
 
+env:
+    - TASK_DIR=task_02
+
 stages:
+  - stylecheck
   - memcheck
   - test
 
@@ -10,26 +14,29 @@ language: cpp
 
 before_install:
     - sudo apt update
+    - sudo apt install clang-format-${CLANG_VERSION} -version || true
     - sudo apt install valgrind
     - sudo apt install cmake
+    - sudo apt install cppcheck
     - sudo apt install libgtest-dev
     - cd /usr/src/gtest
-    - sudo cmake CMakeLists.txt
+    - sudo cmake .
     - sudo make
     - sudo cp *.a /usr/lib
 
 before_script:
     - cd -
-    - mkdir build
-    - cd build
-    - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_CONFIGURATION -DTARGET_CPU=$TARGET_CPU
+    - cd $TASK_DIR
     - cmake --build .
     - make
     
 jobs:
   include:
+    - stage: stylecheck
+      script: cppcheck --std=c++11 -q --enable=all --error-exitcode=1 .
+      
     - stage: memcheck
-      script: valgrind --tool=memcheck --leak-check=full -q ./task_02/task_02 -memcheck
+      script: valgrind --tool=memcheck --leak-check=full -q ./task_02 -memcheck
 
     - stage: test
       script: ctest --output-on-failure
