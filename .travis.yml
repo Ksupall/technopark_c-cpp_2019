@@ -37,7 +37,7 @@ jobs:
       script: cppcheck --std=c++11 -q --enable=all --error-exitcode=1 .
       
     - stage: memcheck
-      script: valgrind --tool=memcheck --leak-check=full -q ./main
+      script: valgrind --tool=memcheck --leak-check=full -q ./main.exe
 
     - stage: test
       script: ctest --output-on-failure
