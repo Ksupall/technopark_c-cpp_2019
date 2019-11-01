@@ -26,6 +26,7 @@ int main (int argc, char *argv[]) {
   if (unlikely(!substr)) {
     err_code = MEM_ERR;
     err_message(err_code);
+	free(substr);
     return err_code;
   }
   int len_substr = MIN_SIZE;
