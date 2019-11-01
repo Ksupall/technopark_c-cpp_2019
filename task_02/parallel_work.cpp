@@ -1,9 +1,11 @@
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <pthread.h>
+
 #include "err_codes.h"
 #include "parallel_work.h"
-#include <pthread.h>
 
 #define unlikely(expr) __builtin_expect(!!(expr), 0)
 #define likely(expr) __builtin_expect(!!(expr), 1)
@@ -88,6 +90,7 @@ int parallel(char *argv, char *substr, int len_mainstr, int len_substr,
 }
 
 void *thread_func(void *args) {
+  assert(args);
   task_args *arg = (task_args *) args;
   int len_str = strlen(arg->str);
   int number_part = arg->i;

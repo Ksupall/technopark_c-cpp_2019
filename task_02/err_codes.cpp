@@ -1,4 +1,5 @@
 #include <stdio.h>
+
 #include "err_codes.h"
 
 void err_message(int code) {
