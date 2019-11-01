@@ -21,6 +21,7 @@ int serial(char *argv, char *substr, int len_mainstr, int len_substr) {
   if (unlikely(!mainstr)) {
     err_code = MEM_ERR;
     err_message(err_code);
+    free(mainstr);
     return err_code;
   }
   for (int i = 0; i < len_mainstr; i++)

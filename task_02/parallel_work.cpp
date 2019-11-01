@@ -12,15 +12,20 @@
 
 char **create_parts(int amount_parts, int len_part)
 {
-	char *data = (char *)calloc(amount_parts * len_part, sizeof(char));
-	if (unlikely(!data))
-		return NULL;
-	char **parts = (char **)calloc(amount_parts, sizeof(char *));
-	if (unlikely(!parts))
-		return NULL;
-	for (int i = 0; i < amount_parts; i++)
-		parts[i] = data + i * len_part;
-	return parts;
+  char *data = (char *)calloc(amount_parts * len_part, sizeof(char));
+  if (unlikely(!data)) {
+    free(data);
+    return NULL;
+  }
+  char **parts = (char **)calloc(amount_parts, sizeof(char *));
+  if (unlikely(!parts)) {
+    free(data);
+    free(parts);
+    return NULL;
+  }
+  for (int i = 0; i < amount_parts; i++)
+  	parts[i] = data + i * len_part;
+  return parts;
 }
 
 void free_parts(char **parts)
@@ -35,8 +40,10 @@ char *between_parts(int len_mainstr, int len_str, int amount_parts,
 					int len_part, char **parts)
 {
   char *part_between = (char *)calloc((len_str - 1) * (amount_parts - 1) * 2, sizeof(char));
-  if (unlikely(!part_between))
+  if (unlikely(!part_between)) {
+    free(part_between);	  
     return NULL;
+  }
   int j = 0;
   // конец первой части
   for (int i =  len_mainstr - len_str + 1; i < len_mainstr; i++)
@@ -114,6 +121,7 @@ task_args mult_threaded(int amount_parts, int len_part, char **parts,
   task_args args;
   if (unlikely(len_str == 0)) {
     args.result = ZERO_SUBSTR;
+    free(threads);
     return args;
   }
   args.parts = create_parts(amount_parts, len_part);
