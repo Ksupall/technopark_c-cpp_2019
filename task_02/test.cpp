@@ -84,7 +84,7 @@ TEST(comare_libs, subst_10_threads_2_notHave)
   ASSERT_EQ(res_ser, res_parall);
 }
 
-TEST(comare_libs, subst_4_threads_2_notHave)
+TEST(comare_libs, subst_4_threads_2)
 {
   char str[] = {'b', 'i', 'k', 'e'};
   int res_ser = serial("data/in_2.txt", str, 200, 4); 
@@ -92,11 +92,51 @@ TEST(comare_libs, subst_4_threads_2_notHave)
   ASSERT_EQ(res_ser, res_parall);
 }
 
-TEST(comare_libs, subst_1_threads_2_notHave)
+TEST(comare_libs, subst_1_threads_2)
 {
   char str[] = {'b'};
   int res_ser = serial("data/in_2.txt", str, 200, 1); 
   int res_parall = parallel("data/in_2.txt", str, 200, 1, 2);
+  ASSERT_EQ(res_ser, res_parall);
+}
+
+TEST(comare_libs, subst_11_threads_8)
+{
+  char str[] = {'v', 'i', 'b', 'e', 'k', 'i', 't', 'e', 'f', 'o', 'o'};
+  int res_ser = serial("data/in_4.txt", str, 400, 11); 
+  int res_parall = parallel("data/in_4.txt", str, 400, 11, 8);
+  ASSERT_EQ(res_ser, res_parall);
+}
+
+TEST(comare_libs, subst_10_threads_8_have)
+{
+  char str[] = {'b', 'e', 'a', 'r', 'w', 'e', 'e', 'k', 'b', 'e'};
+  int res_ser = serial("data/in_4.txt", str, 400, 10); 
+  int res_parall = parallel("data/in_4.txt", str, 400, 10, 8);
+  ASSERT_EQ(res_ser, res_parall);
+}
+
+TEST(comare_libs, subst_10_threads_8_notHave)
+{
+  char str[] = {'j', 't', 'k', 'l', 'l', 'l', 'l', 'P', 'L', 'e'};
+  int res_ser = serial("data/in_4.txt", str, 400, 10); 
+  int res_parall = parallel("data/in_4.txt", str, 400, 10, 8);
+  ASSERT_EQ(res_ser, res_parall);
+}
+
+TEST(comare_libs, subst_4_threads_2)
+{
+  char str[] = {'b', 'i', 'k', 'e'};
+  int res_ser = serial("data/in_4.txt", str, 400, 4); 
+  int res_parall = parallel("data/in_4.txt", str, 400, 4, 8);
+  ASSERT_EQ(res_ser, res_parall);
+}
+
+TEST(comare_libs, subst_1_threads_8)
+{
+  char str[] = {'b'};
+  int res_ser = serial("data/in_4.txt", str, 400, 1); 
+  int res_parall = parallel("data/in_4.txt", str, 400, 1, 8);
   ASSERT_EQ(res_ser, res_parall);
 }
 
