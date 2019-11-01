@@ -23,16 +23,17 @@ before_install:
     - sudo cmake .
     - sudo make
     - sudo cp *.a /usr/lib
+    - cd -
 
 before_script:
-    - cd -
     - cd $TASK_DIR
-    - cmake .
+    - cmake CMakeListst.txt
     - make
     
 jobs:
   include:
     - stage: stylecheck
+      before_script: skip
       script: cppcheck --std=c++11 -q --enable=all --error-exitcode=1 .
       
     - stage: memcheck

@@ -36,10 +36,9 @@ int serial(char *argv, char *substr, int len_mainstr, int len_substr) {
 
 int read_string(char **str, int *len) {
   char temp = 0;
-  int rc = 0;
   int i = 0;
   do {
-    rc = scanf("%c", &temp);
+    int rc = scanf("%c", &temp);
     if (unlikely(rc != 1))
       return ERR;
     if (temp == '\n')
