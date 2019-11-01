@@ -35,7 +35,7 @@ int main (int argc, char *argv[]) {
     err_message(rc);
     return rc;
   }
-  int amount_threads = 0;
+  int amount_threads = 4;
   printf("Enter amount of threads: ");
   scanf("%d", &amount_threads);
   int res_ser = serial(argv[1], substr, SIZE, len_substr);

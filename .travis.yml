@@ -8,20 +8,17 @@ stages:
 
 language: cpp
 
-env:
-    - TASK_DIR=task_02
-
 before_install:
     - sudo apt update
     - sudo apt install valgrind
     - sudo apt install cmake
     - sudo apt install libgtest-dev
     - cd /usr/src/gtest
-    - sudo cmake .
+    - sudo cmake CMakeLists.txt
     - sudo make
     - sudo cp *.a /usr/lib
 
-install:
+before_script:
     - cd -
     - mkdir build
     - cd build
