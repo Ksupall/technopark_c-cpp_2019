@@ -8,7 +8,7 @@
 #define unlikely(expr) __builtin_expect(!!(expr), 0)
 #define likely(expr) __builtin_expect(!!(expr), 1)
 
-int serial(char *argv, char *substr, int len_mainstr, int len_substr) {
+int serial(const char *argv, char *substr, int len_mainstr, int len_substr) {
   int err_code = 0;
   FILE *f;
   f = fopen(argv, "r");

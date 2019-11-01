@@ -16,7 +16,7 @@
 int main () {
   setbuf(stdout, NULL);
   //int err_code = 0;
-  char *filename[] = {"data/in_1.txt"};
+  const char *filename[] = {"data/in_2.txt"};
   /*
   printf("Enter substring you want to find in file: ");
   char *substr = (char *)calloc(MIN_SIZE, sizeof(char));
@@ -43,9 +43,9 @@ int main () {
   substr[2] = 'k';
   substr[3] = 'e';
   int len_substr = 4;
-  int res_ser = serial(filename[0], substr, SIZE, len_substr);
+  int res_ser = serial(filename[0], substr, 200, len_substr);
   printf("Serial result = %d\n", res_ser); 
-  int res_parall = parallel(filename[0], substr, SIZE, len_substr, amount_threads);
+  int res_parall = parallel(filename[0], substr, 200, len_substr, amount_threads);
   printf("Parallel result = %d", res_parall);
 
   free(substr);
