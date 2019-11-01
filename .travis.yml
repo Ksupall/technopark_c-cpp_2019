@@ -32,8 +32,8 @@ install:
 jobs:
   include:
     - stage: memcheck
-    script: valgrind --tool=memcheck --leak-check=full -q ./task_02/task_02 -memcheck
+      script: valgrind --tool=memcheck --leak-check=full -q ./task_02/task_02 -memcheck
 
-    - stage: program_test
+    - stage: test
       script: ctest --output-on-failure
       after_script: make clean
