@@ -27,7 +27,7 @@ before_install:
 before_script:
     - cd -
     - cd $TASK_DIR
-    - cmake --build .
+    - cmake .
     - make
     
 jobs:
