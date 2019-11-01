@@ -70,6 +70,7 @@ int parallel(char *argv, char *substr, int len_mainstr, int len_substr,
   if (unlikely(!f)) {
     err_code = ERR_FILE;
     err_message(err_code);
+	fclose(f);
     return err_code;
   }
   int len_part = len_mainstr / amount_parts;
@@ -77,6 +78,7 @@ int parallel(char *argv, char *substr, int len_mainstr, int len_substr,
   if (unlikely(!parts)) {
     err_code = MEM_ERR;
 	err_message(err_code);
+	fclose(f);
 	return err_code;
   }
   for (int i = 0; i < amount_parts; i++)

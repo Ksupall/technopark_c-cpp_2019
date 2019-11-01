@@ -15,6 +15,7 @@ int serial(char *argv, char *substr, int len_mainstr, int len_substr) {
   if (unlikely(!f)) {
     err_code = ERR_FILE;
     err_message(err_code);
+	fclose(f);
     return err_code;
   }
   char *mainstr = (char *)calloc(len_mainstr, sizeof(char));
@@ -22,6 +23,7 @@ int serial(char *argv, char *substr, int len_mainstr, int len_substr) {
     err_code = MEM_ERR;
     err_message(err_code);
     free(mainstr);
+	fclose(f);
     return err_code;
   }
   for (int i = 0; i < len_mainstr; i++)
