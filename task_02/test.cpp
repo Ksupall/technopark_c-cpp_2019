@@ -84,6 +84,22 @@ TEST(comare_libs, subst_10_threads_2_notHave)
   ASSERT_EQ(res_ser, res_parall);
 }
 
+TEST(comare_libs, subst_4_threads_2_notHave)
+{
+  char str[] = {'b', 'i', 'k', 'e'};
+  int res_ser = serial("data/in_2.txt", str, 200, 4); 
+  int res_parall = parallel("data/in_2.txt", str, 200, 4, 2);
+  ASSERT_EQ(res_ser, res_parall);
+}
+
+TEST(comare_libs, subst_1_threads_2_notHave)
+{
+  char str[] = {'b'};
+  int res_ser = serial("data/in_2.txt", str, 200, 1); 
+  int res_parall = parallel("data/in_2.txt", str, 200, 1, 2);
+  ASSERT_EQ(res_ser, res_parall);
+}
+
 int main(int argc, char **argv)
 {
     testing::InitGoogleTest(&argc, argv);
