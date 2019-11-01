@@ -16,7 +16,7 @@
 int main () {
   setbuf(stdout, NULL);
   //int err_code = 0;
-  char *filename[] = "data/in_1.txt";
+  char *filename[] = {"data/in_1.txt"};
   /*
   printf("Enter substring you want to find in file: ");
   char *substr = (char *)calloc(MIN_SIZE, sizeof(char));
@@ -37,7 +37,7 @@ int main () {
   int amount_threads = 4;
   //printf("Enter amount of threads: ");
   //scanf("%d", &amount_threads);
-  char *substr = calloc(4, sizeof(int));
+  char *substr = (char *)calloc(4, sizeof(int));
   substr[0] = 'b';
   substr[1] = 'i';
   substr[2] = 'k';
