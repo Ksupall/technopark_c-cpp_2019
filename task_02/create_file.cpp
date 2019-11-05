@@ -26,12 +26,12 @@ int main () {
                   'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C',
                   'V', 'B', 'N', 'M'};
 				  */
-  FILE *f = fopen("data/in_4.txt", "w");
+  FILE *f = fopen("data/in_1.txt", "w");
   if (!f) {
     printf("Couldn't find file!\n");
     return ERR_FILE;
   }
-  for (int i = 0; i < 100; i++) {
+  for (int i = 0; i < 25; i++) {
     int a = rand() % 20;
     fprintf(f, "%s", four_symb[a]);
   }
