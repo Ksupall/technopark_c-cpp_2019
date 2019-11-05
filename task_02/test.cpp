@@ -124,14 +124,6 @@ TEST(comare_libs, subst_10_threads_8_notHave)
   ASSERT_EQ(res_ser, res_parall);
 }
 
-TEST(comare_libs, subst_4_threads_8)
-{
-  char str[] = {'b', 'i', 'k', 'e'};
-  int res_ser = serial("data/in_4.txt", str, 400, 4); 
-  int res_parall = parallel("data/in_4.txt", str, 400, 4, 8);
-  ASSERT_EQ(res_ser, res_parall);
-}
-
 TEST(comare_libs, subst_1_threads_8)
 {
   char str[] = {'b'};
