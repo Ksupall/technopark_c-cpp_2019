@@ -6,9 +6,9 @@ env:
     - TASK_DIR=task_02
 
 stages:
-  - stylecheck
-  - memcheck
-  - test
+    - stylecheck
+    - memcheck
+    - test
 
 language: cpp
 
