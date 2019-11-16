@@ -161,15 +161,13 @@ int main () {
   }
 
   setbuf(stdout, NULL);
-  int err_code = 0;
   const char *filename[] = {"data/in_2.txt"};
   printf("Enter substring you want to find in file: ");
   char *substr = (char *)calloc(MIN_SIZE, sizeof(char));
   if (unlikely(!substr)) {
-    err_code = MEM_ERR;
-    err_message(err_code);
+    err_message(MEM_ERR);
 	free(substr);
-    return err_code;
+    return MEM_ERR;
   }
   int len_substr = MIN_SIZE;
   int rc = read_string(&substr, &len_substr);
