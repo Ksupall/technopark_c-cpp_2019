@@ -86,6 +86,7 @@ ARR_DLL int ARR_DECL mult_threaded(int amount_parts, int len_part, char **parts,
   int status;
   int status_addr;
   if (unlikely(len_str == 0)) {
+    free(threads);
     return ZERO_SUBSTR;
   }
   task_args args;
